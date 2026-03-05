@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Solution>
+  <Project Path="WIMP.IntroduceAndReferSample.App\WIMP.IntroduceAndReferSample.App.csproj" />
+  <Project Path="WIMP.IntroduceAndReferSample.Specs\WIMP.IntroduceAndReferSample.Specs.csproj" />
+</Solution>

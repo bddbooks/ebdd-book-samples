@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Solution>
+  <Project Path="WIMP.LocalScenarioContextSample.App\WIMP.LocalScenarioContextSample.App.csproj" />
+  <Project Path="WIMP.LocalScenarioContextSample.Specs\WIMP.LocalScenarioContextSample.Specs.csproj" />
+</Solution>
