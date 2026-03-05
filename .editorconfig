@@ -1,0 +1,42 @@
+# Prevent fallback to parent .editorconfig files
+root = true
+
+# Default settings:
+[*]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# XML project files
+[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,nativeproj,locproj}]
+indent_size = 2
+indent_style = space
+tab_width = 2
+
+# XML files
+[*.{xml,stylecop,resx,ruleset}]
+indent_size = 2
+
+# XML config files
+[*.{props,targets,config,nuspec}]
+indent_size = 2
+
+# Markdown files
+[*.md]
+# Double trailing spaces can be used for forced new lines
+trim_trailing_whitespace = false
+
+# Gherkin feature files
+[*.feature]
+indent_size = 2
+indent_style = space
+tab_width = 2
+gherkin_indent_rule_children = true
+
+# C# files
+[*.cs]
+charset = utf-8
+indent_style = space
+indent_size = 4
+tab_width = 4
