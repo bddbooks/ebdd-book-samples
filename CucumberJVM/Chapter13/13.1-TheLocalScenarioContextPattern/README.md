@@ -4,16 +4,16 @@ This document shows the differences between the Before and After implementations
 
 ## Summary of Changes
 
-- 📝 Modified [src/test/java/com/wimp/localscenariocontext/specs/stepdefinitions/OrderingStepDefinitions.java](#srctestjavacomwimplocalscenariocontextspecsstepdefinitionsorderingstepdefinitionsjava)
+- 📝 Modified [src/test/java/com/wimp/specs/stepdefinitions/OrderingStepDefinitions.java](#srctestjavacomwimpspecsstepdefinitionsorderingstepdefinitionsjava)
 - 📝 Modified [src/test/resources/features/Ordering.feature](#srctestresourcesfeaturesorderingfeature)
 
 ## Detailed Changes
 
-### src/test/java/com/wimp/localscenariocontext/specs/stepdefinitions/OrderingStepDefinitions.java
+### src/test/java/com/wimp/specs/stepdefinitions/OrderingStepDefinitions.java
 
-[View file](After/src/test/java/com/wimp/localscenariocontext/specs/stepdefinitions/OrderingStepDefinitions.java#L11)
+[View file](After/src/test/java/com/wimp/specs/stepdefinitions/OrderingStepDefinitions.java#L11)
 
-<sub>[Jump to change](After/src/test/java/com/wimp/localscenariocontext/specs/stepdefinitions/OrderingStepDefinitions.java#L14-L24)</sub>
+<sub>[Jump to change](After/src/test/java/com/wimp/specs/stepdefinitions/OrderingStepDefinitions.java#L14-L24)</sub>
 
 ```diff
 @@ -11,14 +11,17 @@ import io.cucumber.java.en.When;

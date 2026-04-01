@@ -4,18 +4,18 @@ This document shows the differences between the Before and After implementations
 
 ## Summary of Changes
 
-- 📝 Modified [WIMP.ShareableScenarioContextSample.Specs/Features/Ordering.feature](#wimpshareablescenariocontextsamplespecsfeaturesorderingfeature)
-- 📝 Modified [WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/AuthenticationStepDefinitions.cs](#wimpshareablescenariocontextsamplespecsstepdefinitionsauthenticationstepdefinitionscs)
-- 📝 Modified [WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpshareablescenariocontextsamplespecsstepdefinitionsorderingstepdefinitionscs)
-- ➕ Added [WIMP.ShareableScenarioContextSample.Specs/Support/AuthenticationContext.cs](#wimpshareablescenariocontextsamplespecssupportauthenticationcontextcs)
+- 📝 Modified [WIMP.Specs/Features/Ordering.feature](#wimpspecsfeaturesorderingfeature)
+- 📝 Modified [WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs](#wimpspecsstepdefinitionsauthenticationstepdefinitionscs)
+- 📝 Modified [WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpspecsstepdefinitionsorderingstepdefinitionscs)
+- ➕ Added [WIMP.Specs/Support/AuthenticationContext.cs](#wimpspecssupportauthenticationcontextcs)
 
 ## Detailed Changes
 
-### WIMP.ShareableScenarioContextSample.Specs/Features/Ordering.feature
+### WIMP.Specs/Features/Ordering.feature
 
-[View file](After/WIMP.ShareableScenarioContextSample.Specs/Features/Ordering.feature#L4)
+[View file](After/WIMP.Specs/Features/Ordering.feature#L4)
 
-<sub>[Jump to change](After/WIMP.ShareableScenarioContextSample.Specs/Features/Ordering.feature#L7-L9)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Features/Ordering.feature#L7-L9)</sub>
 
 ```diff
 @@ -4,6 +4,6 @@ Rule: A customer should receive a notification when their order is cancelled
@@ -30,20 +30,20 @@ This document shows the differences between the Before and After implementations
 +  Then the logged in customer should receive a notification about the cancellation
 ```
 
-### WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/AuthenticationStepDefinitions.cs
+### WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs
 
-[View file](After/WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/AuthenticationStepDefinitions.cs#L1)
+[View file](After/WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs#L1)
 
-<sub>[Jump to change](After/WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/AuthenticationStepDefinitions.cs#L4-L15)</sub>
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs#L4-L15)</sub>
 
 ```diff
 @@ -1,15 +1,17 @@
  using Reqnroll;
  
- using WIMP.ShareableScenarioContextSample.App.Services;
-+using WIMP.ShareableScenarioContextSample.Specs.Support;
+ using WIMP.App.Services;
++using WIMP.Specs.Support;
  
- namespace WIMP.ShareableScenarioContextSample.Specs.StepDefinitions;
+ namespace WIMP.Specs.StepDefinitions;
  
  [Binding]
 -public class AuthenticationStepDefinitions
@@ -58,20 +58,20 @@ This document shows the differences between the Before and After implementations
  }
 ```
 
-### WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs
+### WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs
 
-[View file](After/WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs#L2)
+[View file](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L2)
 
-<sub>[Jump to change](After/WIMP.ShareableScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs#L5-L30)</sub>
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L5-L30)</sub>
 
 ```diff
 @@ -2,31 +2,32 @@ using Reqnroll;
  
- using WIMP.ShareableScenarioContextSample.App.Infrastructure;
- using WIMP.ShareableScenarioContextSample.App.Services;
-+using WIMP.ShareableScenarioContextSample.Specs.Support;
+ using WIMP.App.Infrastructure;
+ using WIMP.App.Services;
++using WIMP.Specs.Support;
  
- namespace WIMP.ShareableScenarioContextSample.Specs.StepDefinitions;
+ namespace WIMP.Specs.StepDefinitions;
  
  [Binding]
 -public class OrderingStepDefinitions
@@ -110,15 +110,15 @@ This document shows the differences between the Before and After implementations
      #region Reset database for every scenario execution
 ```
 
-### WIMP.ShareableScenarioContextSample.Specs/Support/AuthenticationContext.cs
+### WIMP.Specs/Support/AuthenticationContext.cs
 
-[View file](After/WIMP.ShareableScenarioContextSample.Specs/Support/AuthenticationContext.cs#L1)
+[View file](After/WIMP.Specs/Support/AuthenticationContext.cs#L1)
 
-<sub>[Jump to change](After/WIMP.ShareableScenarioContextSample.Specs/Support/AuthenticationContext.cs#L1-L11)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/AuthenticationContext.cs#L1-L11)</sub>
 
 ```diff
 @@ -0,0 +1,11 @@
-+namespace WIMP.ShareableScenarioContextSample.Specs.Support;
++namespace WIMP.Specs.Support;
 +
 +/// <summary>
 +/// Context class for sharing authentication-related data between step definition classes.

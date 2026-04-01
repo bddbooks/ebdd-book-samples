@@ -4,16 +4,16 @@ This document shows the differences between the Before and After implementations
 
 ## Summary of Changes
 
-- 📝 Modified [WIMP.LocalScenarioContextSample.Specs/Features/Ordering.feature](#wimplocalscenariocontextsamplespecsfeaturesorderingfeature)
-- 📝 Modified [WIMP.LocalScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimplocalscenariocontextsamplespecsstepdefinitionsorderingstepdefinitionscs)
+- 📝 Modified [WIMP.Specs/Features/Ordering.feature](#wimpspecsfeaturesorderingfeature)
+- 📝 Modified [WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpspecsstepdefinitionsorderingstepdefinitionscs)
 
 ## Detailed Changes
 
-### WIMP.LocalScenarioContextSample.Specs/Features/Ordering.feature
+### WIMP.Specs/Features/Ordering.feature
 
-[View file](After/WIMP.LocalScenarioContextSample.Specs/Features/Ordering.feature#L5)
+[View file](After/WIMP.Specs/Features/Ordering.feature#L5)
 
-<sub>[Jump to change](After/WIMP.LocalScenarioContextSample.Specs/Features/Ordering.feature#L8)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Features/Ordering.feature#L8)</sub>
 
 ```diff
 @@ -5,5 +5,5 @@ Rule: A customer should receive a notification when their order is cancelled
@@ -25,14 +25,14 @@ This document shows the differences between the Before and After implementations
    Then the customer Rebecca should receive a notification about the cancellation
 ```
 
-### WIMP.LocalScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs
+### WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs
 
-[View file](After/WIMP.LocalScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs#L8)
+[View file](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L8)
 
-<sub>[Jump to change](After/WIMP.LocalScenarioContextSample.Specs/StepDefinitions/OrderingStepDefinitions.cs#L11-L23)</sub>
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L11-L23)</sub>
 
 ```diff
-@@ -8,16 +8,19 @@ namespace WIMP.LocalScenarioContextSample.Specs.StepDefinitions;
+@@ -8,16 +8,19 @@ namespace WIMP.Specs.StepDefinitions;
  [Binding]
  public class OrderingStepDefinitions
  {

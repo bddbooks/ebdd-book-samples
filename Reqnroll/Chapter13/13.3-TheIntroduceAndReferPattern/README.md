@@ -4,18 +4,18 @@ This document shows the differences between the Before and After implementations
 
 ## Summary of Changes
 
-- 📝 Modified [WIMP.IntroduceAndReferSample.Specs/Features/Ordering.feature](#wimpintroduceandrefersamplespecsfeaturesorderingfeature)
-- 📝 Modified [WIMP.IntroduceAndReferSample.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpintroduceandrefersamplespecsstepdefinitionsorderingstepdefinitionscs)
-- ➕ Added [WIMP.IntroduceAndReferSample.Specs/Support/CustomDataTypes.cs](#wimpintroduceandrefersamplespecssupportcustomdatatypescs)
-- ➕ Added [WIMP.IntroduceAndReferSample.Specs/Support/OrderingContext.cs](#wimpintroduceandrefersamplespecssupportorderingcontextcs)
+- 📝 Modified [WIMP.Specs/Features/Ordering.feature](#wimpspecsfeaturesorderingfeature)
+- 📝 Modified [WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpspecsstepdefinitionsorderingstepdefinitionscs)
+- ➕ Added [WIMP.Specs/Support/CustomDataTypes.cs](#wimpspecssupportcustomdatatypescs)
+- ➕ Added [WIMP.Specs/Support/OrderingContext.cs](#wimpspecssupportorderingcontextcs)
 
 ## Detailed Changes
 
-### WIMP.IntroduceAndReferSample.Specs/Features/Ordering.feature
+### WIMP.Specs/Features/Ordering.feature
 
-[View file](After/WIMP.IntroduceAndReferSample.Specs/Features/Ordering.feature#L4)
+[View file](After/WIMP.Specs/Features/Ordering.feature#L4)
 
-<sub>[Jump to change](After/WIMP.IntroduceAndReferSample.Specs/Features/Ordering.feature#L7)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Features/Ordering.feature#L7)</sub>
 
 ```diff
 @@ -4,6 +4,6 @@ Rule: A customer should receive a notification when their order is cancelled
@@ -28,15 +28,15 @@ This document shows the differences between the Before and After implementations
    Then the logged in customer should receive a notification about the cancellation
 ```
 
-### WIMP.IntroduceAndReferSample.Specs/StepDefinitions/OrderingStepDefinitions.cs
+### WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs
 
-[View file](After/WIMP.IntroduceAndReferSample.Specs/StepDefinitions/OrderingStepDefinitions.cs#L7)
+[View file](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L7)
 
-<sub>[Jump to change](After/WIMP.IntroduceAndReferSample.Specs/StepDefinitions/OrderingStepDefinitions.cs#L10-L27)</sub>
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L10-L27)</sub>
 
 ```diff
-@@ -7,21 +7,24 @@ using WIMP.IntroduceAndReferSample.Specs.Support;
- namespace WIMP.IntroduceAndReferSample.Specs.StepDefinitions;
+@@ -7,21 +7,24 @@ using WIMP.Specs.Support;
+ namespace WIMP.Specs.StepDefinitions;
  
  [Binding]
 -public class OrderingStepDefinitions(AuthenticationContext authContext)
@@ -72,19 +72,19 @@ This document shows the differences between the Before and After implementations
      [Then("the logged in customer should receive a notification about the cancellation")]
 ```
 
-### WIMP.IntroduceAndReferSample.Specs/Support/CustomDataTypes.cs
+### WIMP.Specs/Support/CustomDataTypes.cs
 
-[View file](After/WIMP.IntroduceAndReferSample.Specs/Support/CustomDataTypes.cs#L1)
+[View file](After/WIMP.Specs/Support/CustomDataTypes.cs#L1)
 
-<sub>[Jump to change](After/WIMP.IntroduceAndReferSample.Specs/Support/CustomDataTypes.cs#L1-L24)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/CustomDataTypes.cs#L1-L24)</sub>
 
 ```diff
 @@ -0,0 +1,24 @@
 +using Reqnroll;
 +
-+using WIMP.IntroduceAndReferSample.App.Services;
++using WIMP.App.Services;
 +
-+namespace WIMP.IntroduceAndReferSample.Specs.Support;
++namespace WIMP.Specs.Support;
 +
 +[Binding]
 +public class CustomDataTypes(OrderingContext orderingContext)
@@ -106,15 +106,15 @@ This document shows the differences between the Before and After implementations
 +}
 ```
 
-### WIMP.IntroduceAndReferSample.Specs/Support/OrderingContext.cs
+### WIMP.Specs/Support/OrderingContext.cs
 
-[View file](After/WIMP.IntroduceAndReferSample.Specs/Support/OrderingContext.cs#L1)
+[View file](After/WIMP.Specs/Support/OrderingContext.cs#L1)
 
-<sub>[Jump to change](After/WIMP.IntroduceAndReferSample.Specs/Support/OrderingContext.cs#L1-L9)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/OrderingContext.cs#L1-L9)</sub>
 
 ```diff
 @@ -0,0 +1,9 @@
-+namespace WIMP.IntroduceAndReferSample.Specs.Support;
++namespace WIMP.Specs.Support;
 +
 +/// <summary>
 +/// Context class for sharing order-related data between step definition classes.
