@@ -1,0 +1,158 @@
+### WIMP App REST API — interactive request file
+### Works in Visual Studio 2022 (built-in) and VS Code with the REST Client extension.
+###
+### Typical workflow:
+###   1. Run the API:  dotnet run  (starts on http://localhost:5000)
+###   2. Register a customer
+###   3. Login → copy the token into @token below
+###   4. Place orders, deliver them, cancel them, etc.
+
+@baseUrl = http://localhost:5000
+@token = PLACE_TOKEN_HERE
+
+# ─── Registration ─────────────────────────────────────────────────────────────
+
+### Register a new customer
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "customerName": "Rebecca",
+  "email": "rebecca@example.com"
+}
+
+###
+
+### Register — invalid email (expect 400)
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "customerName": "Bob",
+  "email": "not-an-email"
+}
+
+###
+
+# ─── Authentication ───────────────────────────────────────────────────────────
+
+### Login (copy the returned token into @token above)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "customerName": "Rebecca",
+  "password": "Pa22w0rd!"
+}
+
+###
+
+### Login — wrong password (expect 401)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "customerName": "Rebecca",
+  "password": "wrongpassword"
+}
+
+###
+
+### Logout
+DELETE {{baseUrl}}/api/auth/logout
+Authorization: Bearer {{token}}
+
+###
+
+# ─── Promotions ───────────────────────────────────────────────────────────────
+
+### Activate the Margherita Friday promotion
+POST {{baseUrl}}/api/promotions
+Content-Type: application/json
+
+{
+  "name": "Margherita Friday"
+}
+
+###
+
+# ─── Orders ──────────────────────────────────────────────────────────────────
+
+### Place a Margherita order (requires login token)
+POST {{baseUrl}}/api/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "items": [
+    { "name": "Margherita", "size": "Medium", "style": "Regular" }
+  ],
+  "deliveryAddress": "2-4 Waterloo Pl, Edinburgh EH1 3EG",
+  "customerEmail": "rebecca@example.com"
+}
+
+###
+
+### Place an order that will be rejected (5 large pizzas)
+POST {{baseUrl}}/api/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "items": [
+    { "name": "Pepperoni", "size": "Large", "style": "Regular" },
+    { "name": "Pepperoni", "size": "Large", "style": "Regular" },
+    { "name": "Pepperoni", "size": "Large", "style": "Regular" },
+    { "name": "Pepperoni", "size": "Large", "style": "Regular" },
+    { "name": "Pepperoni", "size": "Large", "style": "Regular" }
+  ],
+  "deliveryAddress": "2-4 Waterloo Pl, Edinburgh EH1 3EG",
+  "customerEmail": "rebecca@example.com"
+}
+
+###
+
+### Get order by number  (replace 1000 with an actual order number)
+@orderNo = 1000
+
+GET {{baseUrl}}/api/orders/{{orderNo}}
+
+###
+
+### Change delivery address (only allowed before pickup)
+PUT {{baseUrl}}/api/orders/{{orderNo}}/delivery-address
+Content-Type: application/json
+
+{
+  "address": "18 Holyrood Park Rd, Edinburgh EH16 5AY"
+}
+
+###
+
+### Cancel an order (sends a notification to the customer)
+DELETE {{baseUrl}}/api/orders/{{orderNo}}
+Authorization: Bearer {{token}}
+
+###
+
+### Deliver an order (triggers Margherita Friday coupon if applicable)
+POST {{baseUrl}}/api/orders/{{orderNo}}/deliver
+
+###
+
+# ─── Kitchen ─────────────────────────────────────────────────────────────────
+
+### Kitchen: take the next order to work on (FIFO)
+POST {{baseUrl}}/api/kitchen/take-next-order
+
+###
+
+# ─── Notifications & Coupons ─────────────────────────────────────────────────
+
+### Get cancellation notifications for a customer
+GET {{baseUrl}}/api/notifications/Rebecca
+
+###
+
+### Get coupons sent to a customer's email
+GET {{baseUrl}}/api/coupons/rebecca@example.com

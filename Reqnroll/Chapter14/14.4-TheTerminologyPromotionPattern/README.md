@@ -35,7 +35,7 @@ This document shows the differences between the Before and After implementations
 ```diff
 @@ -9,7 +9,7 @@ namespace WIMP.Specs.StepDefinitions;
  [Binding]
- public class OrderingStepDefinitions(OrderingContext orderingContext, OrderService orderService, PromotionService promotionService, EmailService emailService)
+ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderService orderService)
  {
 -    [When("the customer places an order for {int} pizza(s) of size {string}")]
 +    [When("the customer places an order for {int} pizza(s) of size {pizza-size}")]
