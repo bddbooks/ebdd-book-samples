@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # Java targets
 target/
+.idea/
