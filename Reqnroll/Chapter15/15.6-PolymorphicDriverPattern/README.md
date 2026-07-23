@@ -51,7 +51,7 @@ This document shows the differences between the Before and After implementations
 +        {
 +            var result = authService.Login(customerName, password);
 +            return result.Successful ? new LoginResponse(result.Value, customerName) :
-+                    throw new WimpActionFailedException(result.ErrorMessage);
++                    throw new TestActionFailedException(result.ErrorMessage);
 +        });
 +
 +    public TestAction<VoidReturn> Register(string customerName, string email) =>
@@ -60,7 +60,7 @@ This document shows the differences between the Before and After implementations
 +            var result = authService.Register(customerName, email);
 +            if (!result.Successful)
 +            {
-+                throw new WimpActionFailedException(result.ErrorMessage);
++                throw new TestActionFailedException(result.ErrorMessage);
 +            }
 +        });
 +}
@@ -109,14 +109,18 @@ This document shows the differences between the Before and After implementations
 
 [View file](After/WIMP.Specs/Support/DiConfiguration.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/DiConfiguration.cs#L1-L27)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/DiConfiguration.cs#L1-L32)</sub>
 
 ```diff
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,32 @@
++using Microsoft.Extensions.Logging;
++using Microsoft.Extensions.Logging.Abstractions;
++
 +using Reqnroll;
 +using Reqnroll.BoDi;
 +
 +using WIMP.App.Data;
++using WIMP.App.Services;
 +using WIMP.Specs.Drivers;
 +
 +namespace WIMP.Specs.Support;
@@ -125,7 +129,7 @@ This document shows the differences between the Before and After implementations
 +public class DiConfiguration
 +{
 +    [BeforeScenario(Order = 0)]
-+    public void SetupDrivers(IObjectContainer scenarioContainer)
++    public void SetupDependencies(IObjectContainer scenarioContainer)
 +    {
 +        if (Environment.GetEnvironmentVariable("WIMP_TEST_TARGET") == "rest")
 +        {
@@ -137,6 +141,7 @@ This document shows the differences between the Before and After implementations
 +
 +            // Additional DI registrations to allow injecting AuthenticationService to AuthenticationServiceDriver
 +            scenarioContainer.RegisterTypeAs<StubDataRepository, IDataRepository>();
++            scenarioContainer.RegisterInstanceAs<ILogger<AuthenticationService>>(NullLogger<AuthenticationService>.Instance);
 +        }
 +    }
 +}

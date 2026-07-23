@@ -77,7 +77,7 @@ This document shows the differences between the Before and After implementations
 +        var contactDetails = DomainDefaults.ContactDetailsDefaultInstance();
 +        customizationTable.FillInstance(contactDetails);
 +
-+        ProvideCustomerDetails(contactDetails);
++        ProvideContactDetails(contactDetails);
 +    }
 +
      [When("the customer provides the contact details as:")]
@@ -89,10 +89,10 @@ This document shows the differences between the Before and After implementations
 
 [View file](After/WIMP.Specs/Support/DomainDefaults.cs#L18)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/DomainDefaults.cs#L21-L37)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/DomainDefaults.cs#L21-L38)</sub>
 
 ```diff
-@@ -18,4 +18,21 @@ public static class DomainDefaults
+@@ -18,4 +18,22 @@ public static class DomainDefaults
      }
  
      public const OrderCollection OrderCollection = App.Models.OrderCollection.Delivery;
@@ -100,7 +100,8 @@ This document shows the differences between the Before and After implementations
 +    public const string CustomerName = "Rebecca";
 +    public const string CustomerEmail = "becca@galaxy.uni";
 +    public const string CustomerPhone = "12334456";
-+    public const string Country = "France";
++    public const string CustomerCountry = "US";
++    public const string CustomerState = "Georgia";
 +
 +    public static ContactDetails ContactDetailsDefaultInstance()
 +    {
@@ -109,8 +110,8 @@ This document shows the differences between the Before and After implementations
 +            Name = CustomerName,
 +            Email = CustomerEmail,
 +            Phone = CustomerPhone,
-+            Country = Country,
-+            State = null
++            Country = CustomerCountry,
++            State = CustomerState
 +        };
 +    }
  }

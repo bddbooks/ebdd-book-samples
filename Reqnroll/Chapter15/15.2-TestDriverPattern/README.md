@@ -9,7 +9,7 @@ This document shows the differences between the Before and After implementations
 - ➕ Added [WIMP.Specs/Drivers/OrderingApiDriver.cs](#wimpspecsdriversorderingapidrivercs)
 - 📝 Modified [WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs](#wimpspecsstepdefinitionsauthenticationstepdefinitionscs)
 - 📝 Modified [WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpspecsstepdefinitionsorderingstepdefinitionscs)
-- ➕ Added [WIMP.Specs/Support/WimpActionFailedException.cs](#wimpspecssupportwimpactionfailedexceptioncs)
+- ➕ Added [WIMP.Specs/Support/TestActionFailedException.cs](#wimpspecssupporttestactionfailedexceptioncs)
 
 ## Detailed Changes
 
@@ -41,7 +41,7 @@ This document shows the differences between the Before and After implementations
 +        if (response.StatusCode != HttpStatusCode.OK)
 +        {
 +            string errorMessage = await response.Content.ReadAsStringAsync();
-+            throw new WimpActionFailedException(
++            throw new TestActionFailedException(
 +                $"Login failed with status code {response.StatusCode}. Error message: '{errorMessage}'");
 +        }
 +
@@ -112,7 +112,7 @@ This document shows the differences between the Before and After implementations
 +        {
 +            string? errorMessage =
 +                (await response.Content.ReadFromJsonAsync<ErrorResponse>())?.Error;
-+            throw new WimpActionFailedException(
++            throw new TestActionFailedException(
 +                $"Place order failed with status code {response.StatusCode}. " +
 +                $"Error message: '{errorMessage}'");
 +        }
@@ -132,7 +132,7 @@ This document shows the differences between the Before and After implementations
 +        {
 +            string? errorMessage =
 +                (await response.Content.ReadFromJsonAsync<ErrorResponse>())?.Error;
-+            throw new WimpActionFailedException(
++            throw new TestActionFailedException(
 +                $"Place order failed with status code {response.StatusCode}. " +
 +                $"Error message: '{errorMessage}'");
 +        }
@@ -164,7 +164,7 @@ This document shows the differences between the Before and After implementations
 +public class AuthenticationStepDefinitions(AuthenticationContext authContext, AuthenticationApiDriver authApiDriver)
  {
 -    private HttpResponseMessage? loginApiResponse;
-+    private WimpActionFailedException? loginError;
++    private TestActionFailedException? loginError;
  
      [Given("the customer has authenticated")]
      public async Task GivenTheCustomerHasAuthenticated()
@@ -196,7 +196,7 @@ This document shows the differences between the Before and After implementations
 +            await authApiDriver.PerformLogin(DomainDefaults.CustomerName, DomainDefaults.WrongPassword);
 +            loginError = null;
 +        }
-+        catch (WimpActionFailedException ex)
++        catch (TestActionFailedException ex)
 +        {
 +            loginError = ex;
 +        }
@@ -300,17 +300,15 @@ This document shows the differences between the Before and After implementations
          Assert.IsTrue(notifications.Any(n =>
 ```
 
-### WIMP.Specs/Support/WimpActionFailedException.cs
+### WIMP.Specs/Support/TestActionFailedException.cs
 
-[View file](After/WIMP.Specs/Support/WimpActionFailedException.cs#L1)
+[View file](After/WIMP.Specs/Support/TestActionFailedException.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/WimpActionFailedException.cs#L1-L5)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/TestActionFailedException.cs#L1-L3)</sub>
 
 ```diff
-@@ -0,0 +1,5 @@
+@@ -0,0 +1,3 @@
 +namespace WIMP.Specs.Support;
 +
-+public class WimpActionFailedException(string message) : Exception(message)
-+{
-+}
++public class TestActionFailedException(string message) : Exception(message);
 ```

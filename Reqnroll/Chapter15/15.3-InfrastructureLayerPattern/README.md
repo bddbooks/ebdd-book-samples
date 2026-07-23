@@ -40,7 +40,7 @@ This document shows the differences between the Before and After implementations
 -        if (response.StatusCode != HttpStatusCode.OK)
 -        {
 -            string errorMessage = await response.Content.ReadAsStringAsync();
--            throw new WimpActionFailedException(
+-            throw new TestActionFailedException(
 -                $"Login failed with status code {response.StatusCode}. Error message: '{errorMessage}'");
 -        }
 -
@@ -123,7 +123,7 @@ This document shows the differences between the Before and After implementations
 -        {
 -            string? errorMessage =
 -                (await response.Content.ReadFromJsonAsync<ErrorResponse>())?.Error;
--            throw new WimpActionFailedException(
+-            throw new TestActionFailedException(
 -                $"Place order failed with status code {response.StatusCode}. " +
 -                $"Error message: '{errorMessage}'");
 -        }
@@ -150,7 +150,7 @@ This document shows the differences between the Before and After implementations
 -        {
 -            string? errorMessage =
 -                (await response.Content.ReadFromJsonAsync<ErrorResponse>())?.Error;
--            throw new WimpActionFailedException(
+-            throw new TestActionFailedException(
 -                $"Place order failed with status code {response.StatusCode}. " +
 -                $"Error message: '{errorMessage}'");
 -        }
@@ -203,7 +203,7 @@ This document shows the differences between the Before and After implementations
 +        if (response.StatusCode != successStatusCode)
 +        {
 +            string errorMessage = await ReadErrorMessage(response);
-+            throw new WimpActionFailedException(
++            throw new TestActionFailedException(
 +                $"{actionName} failed with status code {response.StatusCode}. " +
 +                $"Error message: '{errorMessage}'");
 +        }

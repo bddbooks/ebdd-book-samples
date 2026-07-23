@@ -5,7 +5,7 @@ This document shows the differences between the Before and After implementations
 ## Summary of Changes
 
 - 📝 Modified [WIMP.Specs/Features/OrderProcessing.feature](#wimpspecsfeaturesorderprocessingfeature)
-- 📝 Modified [WIMP.Specs/Support/CustomDataTypes.cs](#wimpspecssupportcustomdatatypescs)
+- 📝 Modified [WIMP.Specs/Support/CustomParameterTypes.cs](#wimpspecssupportcustomparametertypescs)
 
 ## Detailed Changes
 
@@ -31,28 +31,28 @@ This document shows the differences between the Before and After implementations
 +  Then the earliest order received should be taken
 ```
 
-### WIMP.Specs/Support/CustomDataTypes.cs
+### WIMP.Specs/Support/CustomParameterTypes.cs
 
-[View file](After/WIMP.Specs/Support/CustomDataTypes.cs#L5)
+[View file](After/WIMP.Specs/Support/CustomParameterTypes.cs#L5)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/CustomDataTypes.cs#L8)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/CustomParameterTypes.cs#L8)</sub>
 
 ```diff
 @@ -5,7 +5,7 @@ using WIMP.App.Services;
  namespace WIMP.Specs.Support;
  
  [Binding]
--public class CustomDataTypes
-+public class CustomDataTypes(OrderingContext orderingContext)
+-public class CustomParameterTypes
++public class CustomParameterTypes(OrderingContext orderingContext)
  {
      [StepArgumentTransformation(@"the order #(\d+)", Name = "order")]
      public int ConvertOrderNumber(int orderNo)
 ```
 
-<sub>[Jump to change](After/WIMP.Specs/Support/CustomDataTypes.cs#L17-L25)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/CustomParameterTypes.cs#L17-L25)</sub>
 
 ```diff
-@@ -14,4 +14,13 @@ public class CustomDataTypes
+@@ -14,4 +14,13 @@ public class CustomParameterTypes
          return order?.OrderNo ??
                 throw new InvalidOperationException("Order not found");
      }

@@ -18,7 +18,7 @@ public class AuthenticationApiDriver(AppHostingContext appHostingContext, RestAp
         if (response.StatusCode != HttpStatusCode.OK)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
-            throw new WimpActionFailedException(
+            throw new TestActionFailedException(
                 $"Login failed with status code {response.StatusCode}. Error message: '{errorMessage}'");
         }
 

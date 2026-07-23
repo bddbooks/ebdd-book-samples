@@ -8,7 +8,7 @@ namespace WIMP.Specs.StepDefinitions;
 [Binding]
 public class AuthenticationStepDefinitions(AuthenticationApiDriver authApiDriver)
 {
-    private WimpActionFailedException? loginError;
+    private TestActionFailedException? loginError;
 
     [When("the customer attempts to log in with a wrong password")]
     public async Task WhenTheCustomerAttemptsToLogInWithAWrongPassword()
@@ -18,7 +18,7 @@ public class AuthenticationStepDefinitions(AuthenticationApiDriver authApiDriver
             await authApiDriver.Login(DomainDefaults.CustomerName, DomainDefaults.WrongPassword).Execute();
             loginError = null;
         }
-        catch (WimpActionFailedException ex)
+        catch (TestActionFailedException ex)
         {
             loginError = ex;
         }

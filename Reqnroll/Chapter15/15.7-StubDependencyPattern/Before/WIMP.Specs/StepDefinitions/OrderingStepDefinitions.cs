@@ -10,8 +10,8 @@ public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver, Notifi
 {
     public record OrderRequestData(TimeSpan ExpectedDeliveryTime);
 
-    [Given("they have placed an order")]
-    public async Task GivenTheyHavePlacedAnOrder(DataTable dataTable)
+    [Given("they have placed an order with")]
+    public async Task GivenTheyHavePlacedAnOrderWith(DataTable dataTable)
     {
         var orderData = dataTable.CreateInstance<OrderRequestData>();
         var expectedDeliveryTime = TimeOnly.FromTimeSpan(orderData.ExpectedDeliveryTime);

@@ -22,7 +22,8 @@ public static class DomainDefaults
     public const string CustomerName = "Rebecca";
     public const string CustomerEmail = "becca@galaxy.uni";
     public const string CustomerPhone = "12334456";
-    public const string Country = "France";
+    public const string CustomerCountry = "US";
+    public const string CustomerState = "Georgia";
 
     public static ContactDetails ContactDetailsDefaultInstance()
     {
@@ -31,8 +32,8 @@ public static class DomainDefaults
             Name = CustomerName,
             Email = CustomerEmail,
             Phone = CustomerPhone,
-            Country = Country,
-            State = null
+            Country = CustomerCountry,
+            State = CustomerState
         };
     }
 }

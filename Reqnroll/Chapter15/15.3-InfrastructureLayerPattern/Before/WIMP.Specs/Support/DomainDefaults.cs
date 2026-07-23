@@ -8,7 +8,7 @@ public static class DomainDefaults
     public const string Password = "Pa22w0rd!";
     public const string WrongPassword = "wrongpassword";
     public const string CustomerEmail = "rebecca@example.com";
-    public const string CustomerAddress = "2-4 Waterloo Pl, Edinburgh EH1 3EG";
+    public const string CustomerAddress = "2850 Piedmont Ave NE, Apt 3C, Atlanta, GA 30308";
 
     public static PizzaItem PizzaItemDefaultInstance(
         string? name = null, PizzaSize? size = null, PizzaStyle? style = null)
@@ -21,7 +21,7 @@ public static class DomainDefaults
         };
     }
 
-    public const string PizzaName = "Magherita";
+    public const string PizzaName = "Margherita";
     public const PizzaSize PizzaSize = App.Models.PizzaSize.Medium;
     public const PizzaStyle PizzaStyle = WIMP.App.Models.PizzaStyle.Regular;
 }

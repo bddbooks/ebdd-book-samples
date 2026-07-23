@@ -6,7 +6,7 @@ This document shows the differences between the Before and After implementations
 
 - 📝 Modified [WIMP.Specs/Features/Ordering.feature](#wimpspecsfeaturesorderingfeature)
 - 📝 Modified [WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpspecsstepdefinitionsorderingstepdefinitionscs)
-- ➕ Added [WIMP.Specs/Support/CustomDataTypes.cs](#wimpspecssupportcustomdatatypescs)
+- ➕ Added [WIMP.Specs/Support/CustomParameterTypes.cs](#wimpspecssupportcustomparametertypescs)
 - ➕ Added [WIMP.Specs/Support/OrderingContext.cs](#wimpspecssupportorderingcontextcs)
 
 ## Detailed Changes
@@ -72,11 +72,11 @@ This document shows the differences between the Before and After implementations
      [Then("the logged in customer should receive a notification about the cancellation")]
 ```
 
-### WIMP.Specs/Support/CustomDataTypes.cs
+### WIMP.Specs/Support/CustomParameterTypes.cs
 
-[View file](After/WIMP.Specs/Support/CustomDataTypes.cs#L1)
+[View file](After/WIMP.Specs/Support/CustomParameterTypes.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/CustomDataTypes.cs#L1-L24)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/CustomParameterTypes.cs#L1-L24)</sub>
 
 ```diff
 @@ -0,0 +1,24 @@
@@ -87,7 +87,7 @@ This document shows the differences between the Before and After implementations
 +namespace WIMP.Specs.Support;
 +
 +[Binding]
-+public class CustomDataTypes(OrderingContext orderingContext)
++public class CustomParameterTypes(OrderingContext orderingContext)
 +{
 +    [StepArgumentTransformation("the order|the placed order", Name = "order")]
 +    public int ConvertOrder()

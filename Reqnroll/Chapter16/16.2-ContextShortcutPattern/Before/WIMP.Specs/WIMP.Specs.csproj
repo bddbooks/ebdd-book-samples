@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <ReqnrollUseIntermediateOutputPathForCodeBehind>true</ReqnrollUseIntermediateOutputPathForCodeBehind>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WIMP.App\WIMP.App.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Reqnroll" Version="3.3.3" />
+    <PackageReference Include="Reqnroll.MsTest" Version="3.3.3" />
+  </ItemGroup>
+
+</Project>

@@ -172,7 +172,7 @@ This document shows the differences between the Before and After implementations
 +            await authApiDriver.Login(DomainDefaults.CustomerName, DomainDefaults.WrongPassword).Execute();
              loginError = null;
          }
-         catch (WimpActionFailedException ex)
+         catch (TestActionFailedException ex)
 ```
 
 ### WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs

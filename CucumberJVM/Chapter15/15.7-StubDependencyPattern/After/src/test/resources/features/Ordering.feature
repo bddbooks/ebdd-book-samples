@@ -4,7 +4,7 @@ Feature: Ordering
 
     Scenario: The customer is notified about a delay
       Given the customer has authenticated
-      And they have placed an order
+      And they have placed an order with
         | expected delivery time |
         | 18:45                  |
       When the delivery has not been made by 18:46

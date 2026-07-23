@@ -33,7 +33,7 @@ This document shows the differences between the Before and After implementations
  [Binding]
  public class AuthenticationStepDefinitions(AuthenticationApiDriver authApiDriver)
  {
--    private WimpActionFailedException? loginError;
+-    private TestActionFailedException? loginError;
 +    private TestActionResult<LoginResponse> loginResult = TestActionResult<LoginResponse>.NotExecuted;
  
      [When("the customer attempts to log in with a wrong password")]
@@ -44,7 +44,7 @@ This document shows the differences between the Before and After implementations
 -            await authApiDriver.Login(DomainDefaults.CustomerName, DomainDefaults.WrongPassword).Execute();
 -            loginError = null;
 -        }
--        catch (WimpActionFailedException ex)
+-        catch (TestActionFailedException ex)
 -        {
 -            loginError = ex;
 -        }
@@ -81,7 +81,7 @@ This document shows the differences between the Before and After implementations
 +            var result = await Execute();
 +            return TestActionResult<TResult>.CreateSucceeded(result);
 +        }
-+        catch (WimpActionFailedException error)
++        catch (TestActionFailedException error)
 +        {
 +            return TestActionResult<TResult>.CreateFailed(error);
 +        }
@@ -108,17 +108,17 @@ This document shows the differences between the Before and After implementations
 +        TResult result = default!) => new(true, null, result);
 +
 +    public static TestActionResult<TResult> CreateFailed(
-+        WimpActionFailedException error) => new(false, error, default!);
++        TestActionFailedException error) => new(false, error, default!);
 +
 +    public bool WasExecuted => !Equals(NotExecuted);
 +
 +    public bool Success { get; }
 +
-+    public WimpActionFailedException? Error { get; }
++    public TestActionFailedException? Error { get; }
 +
 +    public TResult Result { get; }
 +
-+    private TestActionResult(bool success, WimpActionFailedException? error, TResult result)
++    private TestActionResult(bool success, TestActionFailedException? error, TResult result)
 +    {
 +        Success = success;
 +        Error = error;

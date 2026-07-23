@@ -31,7 +31,7 @@ public class OrderService(DataContext dataContext)
         return dataContext.GetOrderByOrderNr(orderNo);
     }
 
-    public void ProvideCustomerDetails(Order order, ContactDetails contactDetails)
+    public void ProvideContactDetails(Order order, ContactDetails contactDetails)
     {
         ValidateContactDetails(contactDetails);
         if (order.Collection == OrderCollection.CustomerCollection)

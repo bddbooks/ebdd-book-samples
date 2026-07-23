@@ -13,7 +13,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext)
     public void GivenTheFollowingOrdersHaveBeenPlaced(Table ordersTable)
     {
         // In order to ensure the orders, we replay the ordering steps with a test customer.
-        // A better approach to ensure this context is shown in Chapter 15, TODO pattern.
+        // A better approach to ensure this context is shown in Chapter 16, Context Shortcut pattern.
         AuthenticationService.Login("Rebecca");
         foreach (var row in ordersTable.Rows)
         {
@@ -45,8 +45,8 @@ public class OrderingStepDefinitions(OrderingContext orderingContext)
     /// <summary>
     /// This hook resets the in-memory database before each scenario execution,
     /// ensuring that each test starts with a clean state.
-    /// The pattern TODO1 contains a better approach for in-memory database management via dependencies.
-    /// The pattern TODO2 contains further options for dealing with shared resources, such as using a real database.
+    /// The pattern 15.2 contains a better approach for in-memory database management via dependencies.
+    /// The pattern 18.2 contains further options for dealing with shared resources, such as using a real database.
     /// </summary>
     [BeforeScenario]
     public void ResetDatabase()

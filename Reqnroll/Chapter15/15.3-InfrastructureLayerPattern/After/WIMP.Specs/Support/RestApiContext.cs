@@ -29,7 +29,7 @@ public class RestApiContext(AppHostingContext appHostingContext)
         if (response.StatusCode != successStatusCode)
         {
             string errorMessage = await ReadErrorMessage(response);
-            throw new WimpActionFailedException(
+            throw new TestActionFailedException(
                 $"{actionName} failed with status code {response.StatusCode}. " +
                 $"Error message: '{errorMessage}'");
         }

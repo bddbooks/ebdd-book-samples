@@ -9,17 +9,17 @@ public record TestActionResult<TResult>
         TResult result = default!) => new(true, null, result);
 
     public static TestActionResult<TResult> CreateFailed(
-        WimpActionFailedException error) => new(false, error, default!);
+        TestActionFailedException error) => new(false, error, default!);
 
     public bool WasExecuted => !Equals(NotExecuted);
 
     public bool Success { get; }
 
-    public WimpActionFailedException? Error { get; }
+    public TestActionFailedException? Error { get; }
 
     public TResult Result { get; }
 
-    private TestActionResult(bool success, WimpActionFailedException? error, TResult result)
+    private TestActionResult(bool success, TestActionFailedException? error, TResult result)
     {
         Success = success;
         Error = error;

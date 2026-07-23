@@ -71,7 +71,7 @@ This document shows the differences between the Before and After implementations
 -        // to process the subscription.
 +        // ensuring that the placing time is before the expected delivery time
 +        timeServiceDriver.SetCurrentTime(expectedDeliveryTime.Add(TimeSpan.FromMinutes(-5)));
-+        // preparing a place order request with expected delivery time (this setting is only available for testing) 
++        // preparing a place order request with expected delivery time (this setting is only available for testing)
          var placeOrderRequest = new PlaceOrderRequestObjectMother()
 -            .WithExpectedDeliveryTime(DateTimeOffset.Now.AddSeconds(0.5))
 +            .WithExpectedDeliveryTime(timeServiceDriver.GetTodayTime(expectedDeliveryTime))

@@ -32,7 +32,7 @@ public abstract class TestAction<TResult>(string actionName)
             var result = await Execute();
             return TestActionResult<TResult>.CreateSucceeded(result);
         }
-        catch (WimpActionFailedException error)
+        catch (TestActionFailedException error)
         {
             return TestActionResult<TResult>.CreateFailed(error);
         }

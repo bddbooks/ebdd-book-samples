@@ -75,5 +75,5 @@ This document shows the differences between the Before and After implementations
 +
      public const string CustomerName = "Rebecca";
      public const string CustomerEmail = "becca@galaxy.uni";
-     public const string DeliveryAddress = "2-4 Waterloo Pl, Edinburgh EH1 3EG";
+     public const string DeliveryAddress = "2850 Piedmont Ave NE, Apt 3C, Atlanta, GA 30308";
 ```

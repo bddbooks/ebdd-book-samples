@@ -6,7 +6,7 @@ This document shows the differences between the Before and After implementations
 
 - 📝 Modified [WIMP.Specs/Features/Ordering.feature](#wimpspecsfeaturesorderingfeature)
 - 📝 Modified [WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs](#wimpspecsstepdefinitionsorderingstepdefinitionscs)
-- ➕ Added [WIMP.Specs/Support/SizeConverter.cs](#wimpspecssupportsizeconvertercs)
+- ➕ Added [WIMP.Specs/Support/CustomParameterTypes.cs](#wimpspecssupportcustomparametertypescs)
 
 ## Detailed Changes
 
@@ -44,11 +44,11 @@ This document shows the differences between the Before and After implementations
          var order = new OrderObjectMother()
 ```
 
-### WIMP.Specs/Support/SizeConverter.cs
+### WIMP.Specs/Support/CustomParameterTypes.cs
 
-[View file](After/WIMP.Specs/Support/SizeConverter.cs#L1)
+[View file](After/WIMP.Specs/Support/CustomParameterTypes.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/SizeConverter.cs#L1-L19)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/CustomParameterTypes.cs#L1-L19)</sub>
 
 ```diff
 @@ -0,0 +1,19 @@
@@ -59,7 +59,7 @@ This document shows the differences between the Before and After implementations
 +namespace WIMP.Specs.Support;
 +
 +[Binding]
-+public class SizeConverter
++public class CustomParameterTypes
 +{
 +    [StepArgumentTransformation("(10\"|12\"|14\")", Name = "pizza-size")]
 +    public PizzaSize ConvertPizzaSize(string pizzaSizeString) =>

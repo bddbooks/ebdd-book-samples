@@ -23,7 +23,7 @@ public class OrderingApiDriver(AppHostingContext appHostingContext, RestApiConte
         {
             string? errorMessage =
                 (await response.Content.ReadFromJsonAsync<ErrorResponse>())?.Error;
-            throw new WimpActionFailedException(
+            throw new TestActionFailedException(
                 $"Place order failed with status code {response.StatusCode}. " +
                 $"Error message: '{errorMessage}'");
         }
@@ -43,7 +43,7 @@ public class OrderingApiDriver(AppHostingContext appHostingContext, RestApiConte
         {
             string? errorMessage =
                 (await response.Content.ReadFromJsonAsync<ErrorResponse>())?.Error;
-            throw new WimpActionFailedException(
+            throw new TestActionFailedException(
                 $"Place order failed with status code {response.StatusCode}. " +
                 $"Error message: '{errorMessage}'");
         }

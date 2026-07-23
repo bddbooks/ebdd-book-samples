@@ -35,8 +35,8 @@ public class OrderingStepDefinitions(AuthenticationContext authContext)
     /// <summary>
     /// This hook resets the in-memory database before each scenario execution,
     /// ensuring that each test starts with a clean state.
-    /// The pattern TODO1 contains a better approach for in-memory database management via dependencies.
-    /// The pattern TODO2 contains further options for dealing with shared resources, such as using a real database.
+    /// The pattern 15.2 contains a better approach for in-memory database management via dependencies.
+    /// The pattern 18.2 contains further options for dealing with shared resources, such as using a real database.
     /// </summary>
     [BeforeScenario]
     public void ResetDatabase()

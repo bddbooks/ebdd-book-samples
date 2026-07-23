@@ -11,7 +11,7 @@ public class AuthenticationServiceDriver(AuthenticationService authService) : IA
         {
             var result = authService.Login(customerName, password);
             return result.Successful ? new LoginResponse(result.Value, customerName) :
-                    throw new WimpActionFailedException(result.ErrorMessage);
+                    throw new TestActionFailedException(result.ErrorMessage);
         });
 
     public TestAction<VoidReturn> Register(string customerName, string email) =>
@@ -20,7 +20,7 @@ public class AuthenticationServiceDriver(AuthenticationService authService) : IA
             var result = authService.Register(customerName, email);
             if (!result.Successful)
             {
-                throw new WimpActionFailedException(result.ErrorMessage);
+                throw new TestActionFailedException(result.ErrorMessage);
             }
         });
 }

@@ -68,7 +68,7 @@ public class RestApiContext {
 
         MockHttpServletResponse response = mockMvc.perform(requestBuilder).andReturn().getResponse();
         if (response.getStatus() != successStatusCode.value()) {
-            throw new WimpActionFailedException(actionName + " failed with status code " + response.getStatus()
+            throw new TestActionFailedException(actionName + " failed with status code " + response.getStatus()
                 + ". Error message: '" + readErrorMessage(response) + "'");
         }
 

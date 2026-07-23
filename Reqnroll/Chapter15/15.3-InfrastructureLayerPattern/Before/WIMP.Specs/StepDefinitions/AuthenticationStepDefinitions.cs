@@ -8,7 +8,7 @@ namespace WIMP.Specs.StepDefinitions;
 [Binding]
 public class AuthenticationStepDefinitions(AuthenticationContext authContext, AuthenticationApiDriver authApiDriver)
 {
-    private WimpActionFailedException? loginError;
+    private TestActionFailedException? loginError;
 
     [Given("the customer has authenticated")]
     public async Task GivenTheCustomerHasAuthenticated()
@@ -25,7 +25,7 @@ public class AuthenticationStepDefinitions(AuthenticationContext authContext, Au
             await authApiDriver.PerformLogin(DomainDefaults.CustomerName, DomainDefaults.WrongPassword);
             loginError = null;
         }
-        catch (WimpActionFailedException ex)
+        catch (TestActionFailedException ex)
         {
             loginError = ex;
         }

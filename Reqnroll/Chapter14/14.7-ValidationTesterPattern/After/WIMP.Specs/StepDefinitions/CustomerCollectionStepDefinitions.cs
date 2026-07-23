@@ -10,7 +10,7 @@ namespace WIMP.Specs.StepDefinitions;
 public class CustomerCollectionStepDefinitions(OrderService orderService)
 {
     private Order? order;
-    private Exception? provideCustomerDetailsError = new InvalidOperationException("provide customer details was not invoked");
+    private Exception? provideContactDetailsError = new InvalidOperationException("provide contact details was not invoked");
 
     [Given("a customer has chosen to collect their order")]
     public void GivenACustomerHasChosenToCollectTheirOrder()
@@ -24,40 +24,40 @@ public class CustomerCollectionStepDefinitions(OrderService orderService)
         var contactDetails = DomainDefaults.ContactDetailsDefaultInstance();
         customizationTable.FillInstance(contactDetails);
 
-        ProvideCustomerDetails(contactDetails);
+        ProvideContactDetails(contactDetails);
     }
 
     [When("the customer provides the contact details as:")]
     public void WhenTheCustomerProvidesTheContactDetailsAs(DataTable contactDetailsTable)
     {
         var contactDetails = contactDetailsTable.CreateInstance<ContactDetails>();
-        ProvideCustomerDetails(contactDetails);
+        ProvideContactDetails(contactDetails);
     }
 
-    private void ProvideCustomerDetails(ContactDetails contactDetails)
+    private void ProvideContactDetails(ContactDetails contactDetails)
     {
         try
         {
-            provideCustomerDetailsError = null;
-            orderService.ProvideCustomerDetails(
+            provideContactDetailsError = null;
+            orderService.ProvideContactDetails(
                 order ?? throw new InvalidOperationException("Order not placed"),
                 contactDetails);
         }
         catch (Exception ex)
         {
-            provideCustomerDetailsError = ex;
+            provideContactDetailsError = ex;
         }
     }
 
     [Then("the contact details are accepted")]
     public void ThenTheContactDetailsAreAccepted()
     {
-        Assert.IsNull(provideCustomerDetailsError, $"No error expected, but got: {provideCustomerDetailsError?.Message}");
+        Assert.IsNull(provideContactDetailsError, $"No error expected, but got: {provideContactDetailsError?.Message}");
     }
 
     [Then("the contact details are not accepted")]
     public void ThenTheContactDetailsAreNotAccepted()
     {
-        Assert.IsNotNull(provideCustomerDetailsError);
+        Assert.IsNotNull(provideContactDetailsError);
     }
 }

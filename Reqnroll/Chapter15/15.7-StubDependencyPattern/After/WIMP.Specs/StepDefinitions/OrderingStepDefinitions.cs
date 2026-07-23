@@ -10,14 +10,14 @@ public class OrderingStepDefinitions(TimeServiceDriver timeServiceDriver, Orderi
 {
     public record OrderRequestData(TimeSpan ExpectedDeliveryTime);
 
-    [Given("they have placed an order")]
-    public async Task GivenTheyHavePlacedAnOrder(DataTable dataTable)
+    [Given("they have placed an order with")]
+    public async Task GivenTheyHavePlacedAnOrderWith(DataTable dataTable)
     {
         var orderData = dataTable.CreateInstance<OrderRequestData>();
         var expectedDeliveryTime = TimeOnly.FromTimeSpan(orderData.ExpectedDeliveryTime);
         // ensuring that the placing time is before the expected delivery time
         timeServiceDriver.SetCurrentTime(expectedDeliveryTime.Add(TimeSpan.FromMinutes(-5)));
-        // preparing a place order request with expected delivery time (this setting is only available for testing) 
+        // preparing a place order request with expected delivery time (this setting is only available for testing)
         var placeOrderRequest = new PlaceOrderRequestObjectMother()
             .WithExpectedDeliveryTime(timeServiceDriver.GetTodayTime(expectedDeliveryTime))
             .Build();
