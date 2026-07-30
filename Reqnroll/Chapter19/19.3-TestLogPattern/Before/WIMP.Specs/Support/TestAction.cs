@@ -1,0 +1,41 @@
+using System.Diagnostics;
+
+namespace WIMP.Specs.Support;
+
+public abstract class TestAction<TResult>(string actionName, object? input = null)
+{
+    public string TestActionName => actionName;
+    public object? Input { get; } = input;
+
+    protected abstract Task<TResult> DoExecute();
+
+    public async Task<TResult> Execute()
+    {
+        Console.WriteLine($"Executing {TestActionName} with {Input}...");
+        var stopwatch = Stopwatch.StartNew();
+        try
+        {
+            var result = await DoExecute();
+            Console.WriteLine($"{TestActionName} executed successfully in {stopwatch.Elapsed}.");
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"{TestActionName} failed: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<TestActionResult<TResult>> AttemptExecute()
+    {
+        try
+        {
+            var result = await Execute();
+            return TestActionResult<TResult>.CreateSucceeded(result);
+        }
+        catch (TestActionFailedException error)
+        {
+            return TestActionResult<TResult>.CreateFailed(error);
+        }
+    }
+}

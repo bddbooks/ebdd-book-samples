@@ -1,0 +1,12 @@
+{
+  "Database": {
+    "UseStub": false,
+    "ConnectionString": "Server=localhost;Port=3306;Database=wimp_test_db;User=root;Password=root;",
+    "PoolSize": 4,
+    "PooledConnectionStringTemplate": "Server=localhost;Port=3306;Database=wimp_test_db_{index};User=root;Password=root;"
+  },
+  "PaymentGateway": {
+    "Url": "http://localhost/pgwsim",
+    "ApiKey": "39845yjkhsd8ke"
+  }
+}

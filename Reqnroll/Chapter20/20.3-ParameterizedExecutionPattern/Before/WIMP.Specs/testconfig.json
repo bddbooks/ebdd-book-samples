@@ -1,0 +1,9 @@
+{
+  "Database": {
+    "ConnectionString": "Server=localhost;Port=3306;Database=wimp_test_db;User=root;Password=root;"
+  },
+  "PaymentGateway": {
+    "Url": "http://localhost/pgwsim",
+    "ApiKey": "39845yjkhsd8ke"
+  }
+}
