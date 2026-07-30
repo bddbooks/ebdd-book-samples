@@ -23,6 +23,6 @@ Rule: Customers must supply acceptable contact details when placing an order for
 
   Examples:
     | description            | country | state | result       |
-    | state missing for US   | US      | -     | not accepted |
+    | state missing for US   | US      | none  | not accepted |
     | state provided for US  | US      | CA    | accepted     |
-    | state optional, non-US | France  | -     | accepted     |
+    | state optional, non-US | France  | none  | accepted     |

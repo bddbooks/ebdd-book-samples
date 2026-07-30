@@ -12,7 +12,7 @@ Rule: Weekly sales report can be generated with daily and by pizza breakdown
       | 2026-03-13 | $200 | $200      | $500       | $300          |
       | 2026-03-14 | $700 | $300      | $800       | $500          |
       | 2026-03-15 | $600 | $200      | $400       | $600          |
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2026-03-09
     Then the report should show:
       """
@@ -42,7 +42,7 @@ Rule: Weekly sales report can be generated with daily and by pizza breakdown
       | 2025-12-26 | $200 | $200      | $500       | $300          |
       | 2025-12-27 | $700 | $300      | $800       | $500          |
       | 2025-12-28 | $600 | $200      | $400       | $600          |
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2025-12-22
     Then the report should show:
       """
@@ -72,7 +72,7 @@ Rule: Weekly sales report can be generated with daily and by pizza breakdown
       | 2026-03-13 | $200 | $200      | $500       | $0            |
       | 2026-03-14 | $700 | $300      | $800       | $0            |
       | 2026-03-15 | $600 | $200      | $400       | $0            |
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2026-03-09
     Then the report should show:
       """
@@ -105,7 +105,7 @@ Rule: Ingredient usage report can be generated for a week
       | 2026-03-13 | $200 | $200      | $500       | $300          |
       | 2026-03-14 | $700 | $300      | $800       | $500          |
       | 2026-03-15 | $600 | $200      | $400       | $600          |
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the ingredient usage report is requested for the week beginning 2026-03-09
     Then the ingredient usage report should show:
       """

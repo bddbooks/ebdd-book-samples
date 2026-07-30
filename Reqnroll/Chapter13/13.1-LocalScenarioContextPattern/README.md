@@ -18,11 +18,11 @@ This document shows the differences between the Before and After implementations
 ```diff
 @@ -5,5 +5,5 @@ Rule: A customer should receive a notification when their order is cancelled
  Scenario: The customer is notified about an order cancellation
-   Given the customer Rebecca has logged in
-   And the customer Rebecca has placed the order #12342
--  When the customer Rebecca cancels the order #12342
-+  When the customer Rebecca cancels the placed order
-   Then the customer Rebecca should receive a notification about the cancellation
+   Given the customer "Rebecca" is authenticated
+   And the customer "Rebecca" has placed the order #12342
+-  When the customer "Rebecca" cancels the order #12342
++  When the customer "Rebecca" cancels the placed order
+   Then the customer "Rebecca" should receive a notification about the cancellation
 ```
 
 ### WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs
@@ -38,21 +38,21 @@ This document shows the differences between the Before and After implementations
  {
 +    private int placedOrderNo;
 +
-     [Given("the customer {word} has placed the order #{int}")]
+     [Given("the customer {string} has placed the order #{int}")]
      public void GivenTheCustomerHasPlacedTheOrder(string customerName, int orderNo)
      {
          OrderService.PlaceOrder(customerName, orderNo, "Margherita");
 +        placedOrderNo = orderNo;  // Store in scenario context
      }
  
--    [When("the customer {word} cancels the order #{int}")]
+-    [When("the customer {string} cancels the order #{int}")]
 -    public void WhenTheCustomerCancelsTheOrder(string customerName, int orderNo)
-+    [When("the customer {word} cancels the placed order")]
++    [When("the customer {string} cancels the placed order")]
 +    public void WhenTheCustomerCancelsThePlacedOrder(string customerName)
      {
 -        OrderService.CancelOrder(customerName, orderNo);
 +        OrderService.CancelOrder(customerName, placedOrderNo);  // Use stored order number
      }
  
-     [Then("the customer {word} should receive a notification about the cancellation")]
+     [Then("the customer {string} should receive a notification about the cancellation")]
 ```

@@ -14,11 +14,11 @@ public class UserSession {
 
     private String loggedInCustomerName;
 
-    public String getLoggedInCustomerName() {
+    public String getAuthenticatedCustomerName() {
         return loggedInCustomerName;
     }
 
-    public void setLoggedInCustomerName(String loggedInCustomerName) {
+    public void setAuthenticatedCustomerName(String loggedInCustomerName) {
         this.loggedInCustomerName = loggedInCustomerName;
     }
 }

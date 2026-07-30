@@ -151,12 +151,12 @@ This document shows the differences between the Before and After implementations
 
 ```diff
 @@ -13,7 +13,7 @@ public class AuthenticationStepDefinitions(AuthenticationContext authContext, Au
-     [Given("the customer has authenticated")]
-     public async Task GivenTheCustomerHasAuthenticated()
+     [Given("the customer is authenticated")]
+     public async Task GivenTheCustomerIsAuthenticated()
      {
 -        await authApiDriver.PerformLogin(DomainDefaults.CustomerName, DomainDefaults.Password);
 +        await authApiDriver.Login(DomainDefaults.CustomerName, DomainDefaults.Password).Execute();
-         authContext.LoggedInCustomerName = DomainDefaults.CustomerName;
+         authContext.AuthenticatedCustomerName = DomainDefaults.CustomerName;
      }
  
 ```
@@ -207,7 +207,7 @@ This document shows the differences between the Before and After implementations
      [Then("they should receive a notification about the cancellation")]
      public async Task ThenTheyShouldReceiveANotificationAboutTheCancellation()
      {
-         string customerName = authContext.LoggedInCustomerName ?? throw new InvalidOperationException("No logged in customer name");
+         string customerName = authContext.AuthenticatedCustomerName ?? throw new InvalidOperationException("No authenticated customer");
 -        var notifications = await notificationsApiDriver.GetNotifications(customerName);
 +        var notifications = await notificationsApiDriver.GetNotifications(customerName).Execute();
  

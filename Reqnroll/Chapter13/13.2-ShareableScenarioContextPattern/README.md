@@ -21,13 +21,13 @@ This document shows the differences between the Before and After implementations
 @@ -4,6 +4,6 @@ Rule: A customer should receive a notification when their order is cancelled
  
  Scenario: The customer is notified about an order cancellation
-   Given the customer Rebecca has logged in
--  And the customer Rebecca has placed the order #12342
--  When the customer Rebecca cancels the placed order
--  Then the customer Rebecca should receive a notification about the cancellation
-+  And the logged in customer has placed the order #12342
-+  When the logged in customer cancels the placed order
-+  Then the logged in customer should receive a notification about the cancellation
+   Given the customer "Rebecca" is authenticated
+-  And the customer "Rebecca" has placed the order #12342
+-  When the customer "Rebecca" cancels the placed order
+-  Then the customer "Rebecca" should receive a notification about the cancellation
++  And the authenticated customer has placed the order #12342
++  When the authenticated customer cancels the placed order
++  Then the authenticated customer should receive a notification about the cancellation
 ```
 
 ### WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs
@@ -49,11 +49,11 @@ This document shows the differences between the Before and After implementations
 -public class AuthenticationStepDefinitions
 +public class AuthenticationStepDefinitions(AuthenticationContext authContext)
  {
-     [Given("the customer {word} has logged in")]
-     public void GivenTheCustomerHasLoggedIn(string customerName)
+     [Given("the customer {string} is authenticated")]
+     public void GivenTheCustomerIsAuthenticated(string customerName)
      {
          AuthenticationService.Login(customerName);
-+        authContext.LoggedInCustomerName = customerName;
++        authContext.AuthenticatedCustomerName = customerName;
      }
  }
 ```
@@ -79,32 +79,32 @@ This document shows the differences between the Before and After implementations
  {
      private int placedOrderNo;
  
--    [Given("the customer {word} has placed the order #{int}")]
+-    [Given("the customer {string} has placed the order #{int}")]
 -    public void GivenTheCustomerHasPlacedTheOrder(string customerName, int orderNo)
-+    [Given("the logged in customer has placed the order #{int}")]
-+    public void GivenTheLoggedInCustomerHasPlacedTheOrder(int orderNo)
++    [Given("the authenticated customer has placed the order #{int}")]
++    public void GivenTheAuthenticatedCustomerHasPlacedTheOrder(int orderNo)
      {
 -        OrderService.PlaceOrder(customerName, orderNo, "Margherita");
-+        OrderService.PlaceOrder(authContext.LoggedInCustomerName, orderNo, "Margherita");
++        OrderService.PlaceOrder(authContext.AuthenticatedCustomerName, orderNo, "Margherita");
          placedOrderNo = orderNo;
      }
  
--    [When("the customer {word} cancels the placed order")]
+-    [When("the customer {string} cancels the placed order")]
 -    public void WhenTheCustomerCancelsThePlacedOrder(string customerName)
-+    [When("the logged in customer cancels the placed order")]
-+    public void WhenTheLoggedInCustomerCancelsThePlacedOrder()
++    [When("the authenticated customer cancels the placed order")]
++    public void WhenTheAuthenticatedCustomerCancelsThePlacedOrder()
      {
 -        OrderService.CancelOrder(customerName, placedOrderNo);
-+        OrderService.CancelOrder(authContext.LoggedInCustomerName, placedOrderNo);
++        OrderService.CancelOrder(authContext.AuthenticatedCustomerName, placedOrderNo);
      }
  
--    [Then("the customer {word} should receive a notification about the cancellation")]
+-    [Then("the customer {string} should receive a notification about the cancellation")]
 -    public void ThenTheCustomerShouldReceiveANotification(string customerName)
-+    [Then("the logged in customer should receive a notification about the cancellation")]
-+    public void ThenTheLoggedInCustomerShouldReceiveANotification()
++    [Then("the authenticated customer should receive a notification about the cancellation")]
++    public void ThenTheAuthenticatedCustomerShouldReceiveANotification()
      {
 -        Assert.IsTrue(NotificationService.WasNotificationSent(customerName));
-+        Assert.IsTrue(NotificationService.WasNotificationSent(authContext.LoggedInCustomerName));
++        Assert.IsTrue(NotificationService.WasNotificationSent(authContext.AuthenticatedCustomerName));
      }
  
      #region Reset database for every scenario execution
@@ -127,6 +127,6 @@ This document shows the differences between the Before and After implementations
 +/// </summary>
 +public class AuthenticationContext
 +{
-+    public string? LoggedInCustomerName { get; set; }
++    public string? AuthenticatedCustomerName { get; set; }
 +}
 ```

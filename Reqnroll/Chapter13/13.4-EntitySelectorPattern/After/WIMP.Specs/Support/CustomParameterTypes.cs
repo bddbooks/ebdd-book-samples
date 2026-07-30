@@ -1,20 +1,10 @@
 using Reqnroll;
 
-using WIMP.App.Services;
-
 namespace WIMP.Specs.Support;
 
 [Binding]
 public class CustomParameterTypes(OrderingContext orderingContext)
 {
-    [StepArgumentTransformation(@"the order #(\d+)", Name = "order")]
-    public int ConvertOrderNumber(int orderNo)
-    {
-        var order = OrderService.GetOrder(orderNo);
-        return order?.OrderNo ??
-               throw new InvalidOperationException("Order not found");
-    }
-
     [StepArgumentTransformation("the earliest order received", Name = "order")]
     public int ConvertEarliestOrder()
     {

@@ -14,6 +14,6 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, Authentica
         await authApiDriver.Login(DomainDefaults.CustomerName, DomainDefaults.Password).Execute();
         var placeOrderRequest = new PlaceOrderRequestObjectMother().Build();
         var placedOrder = await orderingApiDriver.PlaceOrder(placeOrderRequest).Execute();
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 }

@@ -8,19 +8,19 @@ namespace WIMP.Specs.StepDefinitions;
 [Binding]
 public class OrderingStepDefinitions
 {
-    [Given("the customer {word} has placed the order #{int}")]
+    [Given("the customer {string} has placed the order #{int}")]
     public void GivenTheCustomerHasPlacedTheOrder(string customerName, int orderNo)
     {
         OrderService.PlaceOrder(customerName, orderNo, "Margherita");
     }
 
-    [When("the customer {word} cancels the order #{int}")]
+    [When("the customer {string} cancels the order #{int}")]
     public void WhenTheCustomerCancelsTheOrder(string customerName, int orderNo)
     {
         OrderService.CancelOrder(customerName, orderNo);
     }
 
-    [Then("the customer {word} should receive a notification about the cancellation")]
+    [Then("the customer {string} should receive a notification about the cancellation")]
     public void ThenTheCustomerShouldReceiveANotification(string customerName)
     {
         Assert.IsTrue(NotificationService.WasNotificationSent(customerName));

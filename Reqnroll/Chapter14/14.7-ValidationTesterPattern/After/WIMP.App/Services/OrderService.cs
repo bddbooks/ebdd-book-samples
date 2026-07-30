@@ -9,8 +9,8 @@ public class OrderService(DataContext dataContext)
 {
     public Order PlaceOrder(Order order)
     {
-        string customerName = AuthenticationService.GetLoggedInCustomerName() ??
-            throw new InvalidOperationException("Customer is not logged in.");
+        string customerName = AuthenticationService.GetAuthenticatedCustomerName() ??
+            throw new InvalidOperationException("Customer is not authenticated.");
 
         order.OrderNo = dataContext.GetNextOrderNo();
         order.CustomerName = customerName;
@@ -67,7 +67,7 @@ public class OrderService(DataContext dataContext)
             throw new InvalidOperationException("Wrong phone number format");
         }
 
-        if (contactDetails.Country == "US" && (string.IsNullOrWhiteSpace(contactDetails.State) || contactDetails.State == "-"))
+        if (contactDetails.Country == "US" && (string.IsNullOrWhiteSpace(contactDetails.State) || contactDetails.State == "none"))
         {
             throw new InvalidOperationException("For US country the state must be specified");
         }

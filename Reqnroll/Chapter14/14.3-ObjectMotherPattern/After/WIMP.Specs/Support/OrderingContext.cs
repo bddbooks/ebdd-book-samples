@@ -5,5 +5,5 @@ namespace WIMP.Specs.Support;
 /// </summary>
 public class OrderingContext
 {
-    public int? PlacedOrderNo { get; set; }
+    public int? CurrentOrderNo { get; set; }
 }

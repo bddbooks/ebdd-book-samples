@@ -18,7 +18,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
 
         AuthenticationService.Login(DomainDefaults.CustomerName);
         var placedOrder = orderService.PlaceOrder(order);
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 
     #region Additional Step Definitions
@@ -26,7 +26,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
     [Then("the order should be rejected")]
     public void ThenTheOrderShouldBeRejected()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("Order not placed");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         var order = orderService.GetOrder(orderNo) ?? throw new InvalidOperationException("Order not found");
         Assert.AreEqual(OrderStatus.Rejected, order.Status);
     }

@@ -7,8 +7,8 @@ public class OrderService(DataContext dataContext, PromotionService promotionSer
 {
     public Order PlaceOrder(Order order)
     {
-        string customerName = AuthenticationService.GetLoggedInCustomerName() ??
-            throw new InvalidOperationException("Customer is not logged in.");
+        string customerName = AuthenticationService.GetAuthenticatedCustomerName() ??
+            throw new InvalidOperationException("Customer is not authenticated.");
 
         order.OrderNo = dataContext.GetNextOrderNo();
         order.CustomerName = customerName;

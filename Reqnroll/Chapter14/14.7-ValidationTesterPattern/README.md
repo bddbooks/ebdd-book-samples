@@ -55,9 +55,9 @@ This document shows the differences between the Before and After implementations
 -    | Invalid phone                | Rebecca | becca@galaxy.uni | invalid-phone | not accepted |
 -    
 +    | description            | country | state | result       |
-+    | state missing for US   | US      | -     | not accepted |
++    | state missing for US   | US      | none  | not accepted |
 +    | state provided for US  | US      | CA    | accepted     |
-+    | state optional, non-US | France  | -     | accepted     |
++    | state optional, non-US | France  | none  | accepted     |
 ```
 
 ### WIMP.Specs/StepDefinitions/CustomerCollectionStepDefinitions.cs

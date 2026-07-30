@@ -33,11 +33,13 @@ public class OrderingStepDefinitions(OrderingContext orderingContext)
         orderingContext.TakenOrderNo = order?.OrderNo;
     }
 
-    [Then("{order} should be taken")]
-    public void ThenTheOrderShouldBeTaken(int orderNo)
+    [Then("the order placed at {word} should be taken")]
+    public void ThenTheOrderPlacedAtShouldBeTaken(string placedAt)
     {
         Assert.IsNotNull(orderingContext.TakenOrderNo);
-        Assert.AreEqual(orderNo, orderingContext.TakenOrderNo);
+        var expectedTakenOrder = orderingContext.PlacedOrders
+            .First(o => o.PlacingTime == TimeSpan.Parse(placedAt));
+        Assert.AreEqual(expectedTakenOrder.OrderNo, orderingContext.TakenOrderNo);
     }
 
     #region Reset database for every scenario execution

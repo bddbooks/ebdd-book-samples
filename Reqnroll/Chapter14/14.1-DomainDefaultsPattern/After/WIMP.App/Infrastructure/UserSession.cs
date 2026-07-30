@@ -18,5 +18,5 @@ public class UserSession
         }
     }
 
-    public string? LoggedInCustomerName { get; set; }
+    public string? AuthenticatedCustomerName { get; set; }
 }

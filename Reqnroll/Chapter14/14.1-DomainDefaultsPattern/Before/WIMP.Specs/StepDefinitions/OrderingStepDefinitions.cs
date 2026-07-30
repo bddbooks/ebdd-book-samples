@@ -17,7 +17,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
 
         AuthenticationService.Login("Rebecca");
         var placedOrder = orderService.PlaceOrder(order);
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 
     #region Additional Step Definitions
@@ -31,7 +31,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
     [When("the order is delivered")]
     public void WhenTheOrderIsDelivered()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("Order not placed");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         orderService.DeliverOrder(orderNo);
     }
 

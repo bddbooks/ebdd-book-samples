@@ -10,11 +10,11 @@ public class AuthenticationStepDefinitions(AuthenticationContext authContext, Au
 {
     private TestActionFailedException? loginError;
 
-    [Given("the customer has authenticated")]
-    public async Task GivenTheCustomerHasAuthenticated()
+    [Given("the customer is authenticated")]
+    public async Task GivenTheCustomerIsAuthenticated()
     {
         await authApiDriver.PerformLogin(DomainDefaults.CustomerName, DomainDefaults.Password);
-        authContext.LoggedInCustomerName = DomainDefaults.CustomerName;
+        authContext.AuthenticatedCustomerName = DomainDefaults.CustomerName;
     }
 
     [When("the customer attempts to log in with a wrong password")]

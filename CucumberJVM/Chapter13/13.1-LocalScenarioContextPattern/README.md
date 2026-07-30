@@ -48,7 +48,7 @@ This document shows the differences between the Before and After implementations
 ```diff
 @@ -5,5 +5,5 @@ Feature: Order Cancellation
      Scenario: The customer is notified about an order cancellation
-       Given the customer Rebecca has logged in
+       Given the customer Rebecca is authenticated
        And the customer Rebecca has placed the order #12342
 -      When the customer Rebecca cancels the order #12342
 +      When the customer Rebecca cancels the placed order

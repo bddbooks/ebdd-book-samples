@@ -14,7 +14,7 @@ public class PaymentsStepDefinitions(OrderingContext orderingContext, AppHosting
     [When("their payment is authorised by the payment gateway")]
     public async Task WhenTheirPaymentIsAuthorisedByThePaymentGateway()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("No order placed.");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         payment = await paymentApiDriver.AuthorizePaymentFor(orderNo).Execute();
     }
 

@@ -10,20 +10,20 @@ public class OrderingStepDefinitions
 {
     private int placedOrderNo;
 
-    [Given("the customer {word} has placed the order #{int}")]
+    [Given("the customer {string} has placed the order #{int}")]
     public void GivenTheCustomerHasPlacedTheOrder(string customerName, int orderNo)
     {
         OrderService.PlaceOrder(customerName, orderNo, "Margherita");
         placedOrderNo = orderNo;  // Store in scenario context
     }
 
-    [When("the customer {word} cancels the placed order")]
+    [When("the customer {string} cancels the placed order")]
     public void WhenTheCustomerCancelsThePlacedOrder(string customerName)
     {
         OrderService.CancelOrder(customerName, placedOrderNo);  // Use stored order number
     }
 
-    [Then("the customer {word} should receive a notification about the cancellation")]
+    [Then("the customer {string} should receive a notification about the cancellation")]
     public void ThenTheCustomerShouldReceiveANotification(string customerName)
     {
         Assert.IsTrue(NotificationService.WasNotificationSent(customerName));

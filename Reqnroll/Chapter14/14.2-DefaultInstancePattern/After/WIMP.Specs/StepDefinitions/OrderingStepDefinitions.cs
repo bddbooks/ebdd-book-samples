@@ -20,7 +20,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
 
         AuthenticationService.Login(DomainDefaults.CustomerName);
         var placedOrder = orderService.PlaceOrder(order);
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 
     [When("the customer places an order for {int} pizza(s) of size {string}")]
@@ -37,7 +37,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
 
         AuthenticationService.Login(DomainDefaults.CustomerName);
         var placedOrder = orderService.PlaceOrder(order);
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 
     [Given("the customer has placed an order")]
@@ -50,7 +50,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
 
         AuthenticationService.Login(DomainDefaults.CustomerName);
         var placedOrder = orderService.PlaceOrder(order);
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 
     #region Additional Step Definitions
@@ -66,7 +66,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
     [When("the order is delivered")]
     public void WhenTheOrderIsDelivered()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("Order not placed");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         orderService.DeliverOrder(orderNo);
     }
 
@@ -79,7 +79,7 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
     [Then("the order should be rejected")]
     public void ThenTheOrderShouldBeRejected()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("Order not placed");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         var order = orderService.GetOrder(orderNo) ?? throw new InvalidOperationException("Order not found");
         Assert.AreEqual(OrderStatus.Rejected, order.Status);
     }
@@ -87,14 +87,14 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, OrderServi
     [Given("the order is waiting for pickup")]
     public void GivenTheOrderIsWaitingForPickup()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("Order not placed");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         orderService.SetWaitingForPickup(orderNo);
     }
 
     [When("the customer requests to change the delivery address")]
     public void WhenTheCustomerRequestsToChangeTheDeliveryAddress()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("Order not placed");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         try
         {
             deliveryAddressChangeError = null;

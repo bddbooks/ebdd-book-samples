@@ -12,7 +12,7 @@ Rule: Weekly sales report can be generated with daily and by pizza breakdown
       | 2026-03-13 | $200 | $200      | $500       | $300          |
       | 2026-03-14 | $700 | $300      | $800       | $500          |
       | 2026-03-15 | $600 | $200      | $400       | $600          |
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2026-03-09
     Then the report should show:
       """

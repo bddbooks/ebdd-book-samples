@@ -7,9 +7,9 @@ public static class OrderService
 {
     public static Order PlaceOrder(string? customerName, string pizzaName, TimeSpan placingTime, int? forcedOrderNo = null)
     {
-        if (customerName == null || !AuthenticationService.IsLoggedIn(customerName))
+        if (customerName == null || !AuthenticationService.IsAuthenticated(customerName))
         {
-            throw new InvalidOperationException($"Customer '{customerName}' is not logged in.");
+            throw new InvalidOperationException($"Customer '{customerName}' is not authenticated.");
         }
 
         int orderNo = forcedOrderNo ?? DataContext.Instance.GetNextOrderNo();

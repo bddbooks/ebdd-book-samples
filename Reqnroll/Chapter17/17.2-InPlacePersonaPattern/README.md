@@ -33,7 +33,7 @@ This document shows the differences between the Before and After implementations
 +      | A          | Completed |
 +      | B          | Placed    |
 +      | C          | Placed    |
-     And they have logged in
+     And they are authenticated
 -    When they cancel order 1001
 +    When they cancel order B
      Then their order list should contain
@@ -100,7 +100,7 @@ This document shows the differences between the Before and After implementations
 -      | 2026-03-14 | $700 | $300      | $800       | $500          |
 -      | 2026-03-15 | $600 | $200      | $400       | $600          |
 +    Given the "simple" weekly sales traffic
-     And the restaurant owner is logged in
+     And the restaurant owner is authenticated
      When the sales report is requested for the week beginning 2026-03-09
      Then the report should show:
 ```
@@ -122,7 +122,7 @@ This document shows the differences between the Before and After implementations
 -      | 2025-12-27 | $700 | $300      | $800       | $500          |
 -      | 2025-12-28 | $600 | $200      | $400       | $600          |
 +    Given the "Christmas week" weekly sales traffic
-     And the restaurant owner is logged in
+     And the restaurant owner is authenticated
      When the sales report is requested for the week beginning 2025-12-22
      Then the report should show:
 ```
@@ -144,7 +144,7 @@ This document shows the differences between the Before and After implementations
 -      | 2026-03-14 | $700 | $300      | $800       | $0            |
 -      | 2026-03-15 | $600 | $200      | $400       | $0            |
 +    Given the "truffle shortage" weekly sales traffic
-     And the restaurant owner is logged in
+     And the restaurant owner is authenticated
      When the sales report is requested for the week beginning 2026-03-09
      Then the report should show:
 ```
@@ -167,7 +167,7 @@ This document shows the differences between the Before and After implementations
 -      | 2026-03-14 | $700 | $300      | $800       | $500          |
 -      | 2026-03-15 | $600 | $200      | $400       | $600          |
 +    Given the "simple" weekly sales traffic
-     And the restaurant owner is logged in
+     And the restaurant owner is authenticated
      When the ingredient usage report is requested for the week beginning 2026-03-09
      Then the ingredient usage report should show:
 ```
@@ -299,7 +299,7 @@ This document shows the differences between the Before and After implementations
 
 ```diff
 @@ -18,9 +18,11 @@ public class CustomParameterTypes(OrderingContext orderingContext)
-             throw new InvalidOperationException("Order not chosen");
+             throw new InvalidOperationException("No current order");
      }
  
 -    [StepArgumentTransformation(@"order (\d+)", Name = "order")]
@@ -344,7 +344,7 @@ This document shows the differences between the Before and After implementations
 @@ -3,4 +3,5 @@ namespace WIMP.Specs.Support;
  public class OrderingContext
  {
-     public int? PlacedOrderNo { get; set; }
+     public int? CurrentOrderNo { get; set; }
 +    public Dictionary<string, int> NamedOrders { get; } = new();
  }
 ```

@@ -25,7 +25,7 @@ This document shows the differences between the Before and After implementations
 +    Given sales traffic from "realistic-traffic.csv" with
 +      | exclude section|
 +      | truffle sales  |
-     And the restaurant owner is logged in
+     And the restaurant owner is authenticated
      When the ingredient usage report is requested for the week beginning 2026-03-09
      Then the ingredient usage report should contain "truffle" usage as 0 portions
 ```

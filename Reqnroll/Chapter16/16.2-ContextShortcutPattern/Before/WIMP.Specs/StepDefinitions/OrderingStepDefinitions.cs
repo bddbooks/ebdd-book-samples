@@ -31,6 +31,6 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, Authentica
 
         await kitchenApiDriver.SetReady(placedOrder.OrderNo)
             .Execute();
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 }

@@ -8,16 +8,16 @@ namespace WIMP.Specs.StepDefinitions;
 [Binding]
 public class AuthenticationStepDefinitions(AuthenticationApiDriver authApiDriver)
 {
-    [Given("they have logged in")]
-    public async Task GivenTheyHaveLoggedIn()
+    [Given("they are authenticated")]
+    public async Task GivenTheyAreAuthenticated()
     {
         await authApiDriver
             .Login(DomainDefaults.CustomerName, DomainDefaults.Password)
             .Execute();
     }
 
-    [Given("the restaurant owner is logged in")]
-    public async Task GivenTheRestaurantOwnerIsLoggedIn()
+    [Given("the restaurant owner is authenticated")]
+    public async Task GivenTheRestaurantOwnerIsAuthenticated()
     {
         await authApiDriver
             .Login(DomainDefaults.RestaurantOwner, DomainDefaults.Password)

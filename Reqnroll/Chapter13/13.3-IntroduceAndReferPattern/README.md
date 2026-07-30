@@ -21,11 +21,11 @@ This document shows the differences between the Before and After implementations
 @@ -4,6 +4,6 @@ Rule: A customer should receive a notification when their order is cancelled
  
  Scenario: The customer is notified about an order cancellation
-   Given the customer Rebecca has logged in
--  And the logged in customer has placed the order #12342
-+  And the logged in customer has placed an order
-   When the logged in customer cancels the placed order
-   Then the logged in customer should receive a notification about the cancellation
+   Given the customer "Rebecca" is authenticated
+-  And the authenticated customer has placed the order #12342
++  And the authenticated customer has placed an order
+   When the authenticated customer cancels the placed order
+   Then the authenticated customer should receive a notification about the cancellation
 ```
 
 ### WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs
@@ -46,62 +46,52 @@ This document shows the differences between the Before and After implementations
  {
 -    private int placedOrderNo;
 -
--    [Given("the logged in customer has placed the order #{int}")]
--    public void GivenTheLoggedInCustomerHasPlacedTheOrder(int orderNo)
-+    [Given("the logged in customer has placed an order")]
-+    public void GivenTheLoggedInCustomerHasPlacedAnOrder()
+-    [Given("the authenticated customer has placed the order #{int}")]
+-    public void GivenTheAuthenticatedCustomerHasPlacedTheOrder(int orderNo)
++    [Given("the authenticated customer has placed an order")]
++    public void GivenTheAuthenticatedCustomerHasPlacedAnOrder()
      {
--        OrderService.PlaceOrder(authContext.LoggedInCustomerName, "Margherita", orderNo);
+-        OrderService.PlaceOrder(authContext.AuthenticatedCustomerName, "Margherita", orderNo);
 -        placedOrderNo = orderNo;
 +        var order = OrderService.PlaceOrder(
-+            authContext.LoggedInCustomerName, "Margherita");
-+        orderingContext.PlacedOrderNo = order.OrderNo;
++            authContext.AuthenticatedCustomerName, "Margherita");
++        orderingContext.CurrentOrderNo = order.OrderNo;
      }
  
--    [When("the logged in customer cancels the placed order")]
--    public void WhenTheLoggedInCustomerCancelsThePlacedOrder()
-+    [When("the logged in customer cancels {order}")]
-+    public void WhenTheLoggedInCustomerCancelsTheOrder(int orderNo)
+-    [When("the authenticated customer cancels the placed order")]
+-    public void WhenTheAuthenticatedCustomerCancelsThePlacedOrder()
++    [When("the authenticated customer cancels {order}")]
++    public void WhenTheAuthenticatedCustomerCancelsTheOrder(int orderNo)
      {
--        OrderService.CancelOrder(authContext.LoggedInCustomerName, placedOrderNo);
+-        OrderService.CancelOrder(authContext.AuthenticatedCustomerName, placedOrderNo);
 +        OrderService.CancelOrder(
-+            authContext.LoggedInCustomerName,
++            authContext.AuthenticatedCustomerName,
 +            orderNo);
      }
  
-     [Then("the logged in customer should receive a notification about the cancellation")]
+     [Then("the authenticated customer should receive a notification about the cancellation")]
 ```
 
 ### WIMP.Specs/Support/CustomParameterTypes.cs
 
 [View file](After/WIMP.Specs/Support/CustomParameterTypes.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/CustomParameterTypes.cs#L1-L24)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/CustomParameterTypes.cs#L1-L14)</sub>
 
 ```diff
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,14 @@
 +using Reqnroll;
-+
-+using WIMP.App.Services;
 +
 +namespace WIMP.Specs.Support;
 +
 +[Binding]
 +public class CustomParameterTypes(OrderingContext orderingContext)
 +{
-+    [StepArgumentTransformation("the order|the placed order", Name = "order")]
++    [StepArgumentTransformation("the order|the placed order|the new order", Name = "order")]
 +    public int ConvertOrder()
 +    {
-+        return orderingContext.PlacedOrderNo ??
-+            throw new InvalidOperationException("Order not chosen");
-+    }
-+
-+    [StepArgumentTransformation(@"the order #(\d+)", Name = "order")]
-+    public int ConvertOrderNumber(int orderNo)
-+    {
-+        var order = OrderService.GetOrder(orderNo);
-+        return order?.OrderNo ??
-+            throw new InvalidOperationException("Order not found");
++        return orderingContext.CurrentOrderNo ??
++            throw new InvalidOperationException("No current order");
 +    }
 +}
 ```
@@ -121,6 +111,6 @@ This document shows the differences between the Before and After implementations
 +/// </summary>
 +public class OrderingContext
 +{
-+    public int? PlacedOrderNo { get; set; }
++    public int? CurrentOrderNo { get; set; }
 +}
 ```

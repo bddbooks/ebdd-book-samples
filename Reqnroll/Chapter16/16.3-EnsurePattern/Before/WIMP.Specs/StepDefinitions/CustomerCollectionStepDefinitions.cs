@@ -21,7 +21,7 @@ public class CustomerCollectionStepDefinitions(
         await authApiDriver
             .Login(DomainDefaults.CustomerName, DomainDefaults.Password)
             .Execute();
-        authenticationContext.LoggedInCustomerName = DomainDefaults.CustomerName;
+        authenticationContext.AuthenticatedCustomerName = DomainDefaults.CustomerName;
     }
 
     [Given("they have placed an order for {int} pizzas")]
@@ -33,23 +33,23 @@ public class CustomerCollectionStepDefinitions(
         var placedOrder = await orderingApiDriver
             .PlaceOrder(orderRequest)
             .Execute();
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 
     [When("they choose to collect their order")]
     public async Task WhenTheyChooseToCollectTheirOrder()
     {
-        if (orderingContext.PlacedOrderNo == null)
+        if (orderingContext.CurrentOrderNo == null)
         {
             var orderRequest = new PlaceOrderRequestObjectMother().Build();
             var placedOrder = await orderingApiDriver
                 .PlaceOrder(orderRequest)
                 .Execute();
-            orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+            orderingContext.CurrentOrderNo = placedOrder.OrderNo;
         }
 
         orderCollectionDetails = await orderingApiDriver
-            .SetForCollection(orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("No order placed."))
+            .SetForCollection(orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order"))
             .Execute();
     }
 

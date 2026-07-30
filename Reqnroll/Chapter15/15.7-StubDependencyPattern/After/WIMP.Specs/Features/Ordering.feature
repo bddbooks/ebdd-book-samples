@@ -3,7 +3,7 @@ Feature: Ordering
 Rule: Customer should be informed about delivery delays
 
   Scenario: The customer is notified about a delay
-    Given the customer has authenticated
+    Given the customer is authenticated
     And they have placed an order with
       | expected delivery time |
       | 18:45                  |

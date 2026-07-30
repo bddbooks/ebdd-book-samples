@@ -16,6 +16,6 @@ public class OrderingStepDefinitions(OrderingContext orderingContext, BackdoorAp
         var placedOrder = await backdoorApiDriver
             .PrepareOrder(DomainDefaults.CustomerName, orderRequest, OrderStatus.WaitingForPickup)
             .Execute();
-        orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+        orderingContext.CurrentOrderNo = placedOrder.OrderNo;
     }
 }

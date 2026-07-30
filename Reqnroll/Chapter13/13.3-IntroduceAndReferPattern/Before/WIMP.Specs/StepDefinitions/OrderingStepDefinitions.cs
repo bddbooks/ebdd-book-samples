@@ -11,23 +11,23 @@ public class OrderingStepDefinitions(AuthenticationContext authContext)
 {
     private int placedOrderNo;
 
-    [Given("the logged in customer has placed the order #{int}")]
-    public void GivenTheLoggedInCustomerHasPlacedTheOrder(int orderNo)
+    [Given("the authenticated customer has placed the order #{int}")]
+    public void GivenTheAuthenticatedCustomerHasPlacedTheOrder(int orderNo)
     {
-        OrderService.PlaceOrder(authContext.LoggedInCustomerName, "Margherita", orderNo);
+        OrderService.PlaceOrder(authContext.AuthenticatedCustomerName, "Margherita", orderNo);
         placedOrderNo = orderNo;
     }
 
-    [When("the logged in customer cancels the placed order")]
-    public void WhenTheLoggedInCustomerCancelsThePlacedOrder()
+    [When("the authenticated customer cancels the placed order")]
+    public void WhenTheAuthenticatedCustomerCancelsThePlacedOrder()
     {
-        OrderService.CancelOrder(authContext.LoggedInCustomerName, placedOrderNo);
+        OrderService.CancelOrder(authContext.AuthenticatedCustomerName, placedOrderNo);
     }
 
-    [Then("the logged in customer should receive a notification about the cancellation")]
-    public void ThenTheLoggedInCustomerShouldReceiveANotification()
+    [Then("the authenticated customer should receive a notification about the cancellation")]
+    public void ThenTheAuthenticatedCustomerShouldReceiveANotification()
     {
-        Assert.IsTrue(NotificationService.WasNotificationSent(authContext.LoggedInCustomerName));
+        Assert.IsTrue(NotificationService.WasNotificationSent(authContext.AuthenticatedCustomerName));
     }
 
     #region Reset database for every scenario execution

@@ -166,8 +166,8 @@ This document shows the differences between the Before and After implementations
 -    private HttpResponseMessage? loginApiResponse;
 +    private TestActionFailedException? loginError;
  
-     [Given("the customer has authenticated")]
-     public async Task GivenTheCustomerHasAuthenticated()
+     [Given("the customer is authenticated")]
+     public async Task GivenTheCustomerIsAuthenticated()
      {
 -        var payload = new LoginRequest(
 -            DomainDefaults.CustomerName,
@@ -180,7 +180,7 @@ This document shows the differences between the Before and After implementations
 -                            ?? throw new InvalidOperationException("No result payload found");
 -        restApiContext.BearerToken = loginResponse.Token;
 +        await authApiDriver.PerformLogin(DomainDefaults.CustomerName, DomainDefaults.Password);
-         authContext.LoggedInCustomerName = DomainDefaults.CustomerName;
+         authContext.AuthenticatedCustomerName = DomainDefaults.CustomerName;
      }
  
      [When("the customer attempts to log in with a wrong password")]
@@ -290,7 +290,7 @@ This document shows the differences between the Before and After implementations
      [Then("they should receive a notification about the cancellation")]
      public async Task ThenTheyShouldReceiveANotificationAboutTheCancellation()
      {
-         string customerName = authContext.LoggedInCustomerName ?? throw new InvalidOperationException("No logged in customer name");
+         string customerName = authContext.AuthenticatedCustomerName ?? throw new InvalidOperationException("No authenticated customer");
 -        var notifications = await appHostingContext.AppHost.CreateClient()
 -            .GetFromJsonAsync<Notification[]>($"/api/notifications/{customerName}")
 -            ?? throw new InvalidOperationException("No result payload found");

@@ -13,8 +13,8 @@ public class AuthenticationStepDefinitions(AuthenticationContext authContext, Re
 {
     private HttpResponseMessage? loginApiResponse;
 
-    [Given("the customer has authenticated")]
-    public async Task GivenTheCustomerHasAuthenticated()
+    [Given("the customer is authenticated")]
+    public async Task GivenTheCustomerIsAuthenticated()
     {
         var payload = new LoginRequest(
             DomainDefaults.CustomerName,
@@ -26,7 +26,7 @@ public class AuthenticationStepDefinitions(AuthenticationContext authContext, Re
         var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>()
                             ?? throw new InvalidOperationException("No result payload found");
         restApiContext.BearerToken = loginResponse.Token;
-        authContext.LoggedInCustomerName = DomainDefaults.CustomerName;
+        authContext.AuthenticatedCustomerName = DomainDefaults.CustomerName;
     }
 
     [When("the customer attempts to log in with a wrong password")]

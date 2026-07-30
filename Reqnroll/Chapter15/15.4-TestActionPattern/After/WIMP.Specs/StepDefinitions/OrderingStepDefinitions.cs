@@ -28,7 +28,7 @@ public class OrderingStepDefinitions(AuthenticationContext authContext, Ordering
     [Then("they should receive a notification about the cancellation")]
     public async Task ThenTheyShouldReceiveANotificationAboutTheCancellation()
     {
-        string customerName = authContext.LoggedInCustomerName ?? throw new InvalidOperationException("No logged in customer name");
+        string customerName = authContext.AuthenticatedCustomerName ?? throw new InvalidOperationException("No authenticated customer");
         var notifications = await notificationsApiDriver.GetNotifications(customerName).Execute();
 
         Assert.IsNotNull(notifications);

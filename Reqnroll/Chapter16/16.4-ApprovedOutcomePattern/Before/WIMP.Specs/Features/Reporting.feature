@@ -12,7 +12,7 @@ Rule: Weekly report can be generated with daily and by pizza breakdown
       | 2026-03-13 | $200 | $200      | $500       |
       | 2026-03-14 | $700 | $300      | $800       |
       | 2026-03-15 | $600 | $200      | $400       |
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2026-03-09
     Then the report should show a total sales volume of $6000
     And there should be $1200 Pepperoni, $2700 Margherita, and $2100 BBQ sales on the report

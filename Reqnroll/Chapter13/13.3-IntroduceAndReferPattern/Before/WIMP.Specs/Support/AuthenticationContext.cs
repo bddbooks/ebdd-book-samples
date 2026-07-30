@@ -7,5 +7,5 @@ namespace WIMP.Specs.Support;
 /// </summary>
 public class AuthenticationContext
 {
-    public string? LoggedInCustomerName { get; set; }
+    public string? AuthenticatedCustomerName { get; set; }
 }

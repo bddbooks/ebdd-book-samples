@@ -49,7 +49,7 @@ public class OrderingStepDefinitions(AuthenticationContext authContext, RestApiC
     [Then("they should receive a notification about the cancellation")]
     public async Task ThenTheyShouldReceiveANotificationAboutTheCancellation()
     {
-        string customerName = authContext.LoggedInCustomerName ?? throw new InvalidOperationException("No logged in customer name");
+        string customerName = authContext.AuthenticatedCustomerName ?? throw new InvalidOperationException("No authenticated customer");
         var notifications = await appHostingContext.AppHost.CreateClient()
             .GetFromJsonAsync<Notification[]>($"/api/notifications/{customerName}")
             ?? throw new InvalidOperationException("No result payload found");

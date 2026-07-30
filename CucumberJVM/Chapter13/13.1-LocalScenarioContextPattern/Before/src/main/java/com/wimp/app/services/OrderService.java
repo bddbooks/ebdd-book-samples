@@ -6,8 +6,8 @@ import com.wimp.app.models.OrderStatus;
 
 public class OrderService {
     public static void placeOrder(String customerName, int orderNo, String pizzaName) {
-        if (!AuthenticationService.isLoggedIn(customerName)) {
-            throw new RuntimeException("Customer " + customerName + " is not logged in.");
+        if (!AuthenticationService.isAuthenticated(customerName)) {
+            throw new RuntimeException("Customer " + customerName + " is not authenticated.");
         }
 
         Order order = new Order(orderNo, customerName, pizzaName);

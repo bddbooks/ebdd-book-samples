@@ -14,7 +14,7 @@ public class AddressChangeStepDefinitions(OrderingContext orderingContext, Order
     [When("they attempt to change the delivery address")]
     public async Task WhenTheyAttemptToChangeTheDeliveryAddress()
     {
-        int orderNo = orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("No order placed.");
+        int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");
         addressChangeResult = await orderingApiDriver
             .ChangeDeliveryAddress(orderNo, new ChangeAddressRequest(DomainDefaults.AltDeliveryAddress))
             .AttemptExecute();

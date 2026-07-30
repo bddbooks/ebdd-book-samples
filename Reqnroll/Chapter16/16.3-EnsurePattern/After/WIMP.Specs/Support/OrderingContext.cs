@@ -4,17 +4,17 @@ namespace WIMP.Specs.Support;
 
 public class OrderingContext(OrderingApiDriver orderingApiDriver)
 {
-    public int? PlacedOrderNo { get; set; }
+    public int? CurrentOrderNo { get; set; }
 
     public async Task EnsureOrderPlaced()
     {
-        if (PlacedOrderNo == null)
+        if (CurrentOrderNo == null)
         {
             var orderRequest = new PlaceOrderRequestObjectMother().Build();
             var placedOrder = await orderingApiDriver
                 .PlaceOrder(orderRequest)
                 .Execute();
-            PlacedOrderNo = placedOrder.OrderNo;
+            CurrentOrderNo = placedOrder.OrderNo;
         }
     }
 }

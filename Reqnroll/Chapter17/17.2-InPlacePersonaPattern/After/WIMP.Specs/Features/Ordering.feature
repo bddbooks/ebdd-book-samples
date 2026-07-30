@@ -8,7 +8,7 @@ Rule: Open orders can be cancelled
       | A          | Completed |
       | B          | Placed    |
       | C          | Placed    |
-    And they have logged in
+    And they are authenticated
     When they cancel order B
     Then their order list should contain
       | order name | status    |

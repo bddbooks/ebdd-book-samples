@@ -13,8 +13,8 @@ public class AuthenticationStepDefinitions {
         this.authenticationApiDriver = authenticationApiDriver;
     }
 
-    @Given("the customer has authenticated")
-    public void theCustomerHasAuthenticated() throws Exception {
+    @Given("the customer is authenticated")
+    public void theCustomerIsAuthenticated() throws Exception {
         authenticationApiDriver.login(DomainDefaults.CUSTOMER_NAME, DomainDefaults.PASSWORD).execute();
     }
 }

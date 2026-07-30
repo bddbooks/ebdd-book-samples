@@ -26,7 +26,7 @@ This document shows the differences between the Before and After implementations
 -        AuthenticationService.Login("Rebecca");
 +        AuthenticationService.Login(DomainDefaults.CustomerName);
          var placedOrder = orderService.PlaceOrder(order);
-         orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+         orderingContext.CurrentOrderNo = placedOrder.OrderNo;
      }
 ```
 

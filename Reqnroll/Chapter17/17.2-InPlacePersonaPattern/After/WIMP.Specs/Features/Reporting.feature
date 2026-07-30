@@ -33,7 +33,7 @@ Rule: Weekly report can be generated with daily and by pizza breakdown
 
   Scenario: Weekly sales report shows totals by pizza and day
     Given the "simple" weekly sales traffic
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2026-03-09
     Then the report should show:
       """
@@ -55,7 +55,7 @@ Rule: Weekly report can be generated with daily and by pizza breakdown
 
   Scenario: Christmas week sales report includes the holiday closure day
     Given the "Christmas week" weekly sales traffic
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2025-12-22
     Then the report should show:
       """
@@ -77,7 +77,7 @@ Rule: Weekly report can be generated with daily and by pizza breakdown
 
   Scenario: Truffle shortage sales report has no truffle sales
     Given the "truffle shortage" weekly sales traffic
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the sales report is requested for the week beginning 2026-03-09
     Then the report should show:
       """
@@ -101,7 +101,7 @@ Rule: Ingredient usage report can be generated for a week
 
   Scenario: Weekly sales report shows ingredients usage
     Given the "simple" weekly sales traffic
-    And the restaurant owner is logged in
+    And the restaurant owner is authenticated
     When the ingredient usage report is requested for the week beginning 2026-03-09
     Then the ingredient usage report should show:
       """

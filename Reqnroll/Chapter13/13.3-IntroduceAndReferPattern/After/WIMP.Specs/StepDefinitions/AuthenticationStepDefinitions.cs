@@ -8,10 +8,10 @@ namespace WIMP.Specs.StepDefinitions;
 [Binding]
 public class AuthenticationStepDefinitions(AuthenticationContext authContext)
 {
-    [Given("the customer {word} has logged in")]
-    public void GivenTheCustomerHasLoggedIn(string customerName)
+    [Given("the customer {string} is authenticated")]
+    public void GivenTheCustomerIsAuthenticated(string customerName)
     {
         AuthenticationService.Login(customerName);
-        authContext.LoggedInCustomerName = customerName;
+        authContext.AuthenticatedCustomerName = customerName;
     }
 }

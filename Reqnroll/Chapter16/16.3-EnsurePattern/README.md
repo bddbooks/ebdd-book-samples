@@ -20,18 +20,18 @@ This document shows the differences between the Before and After implementations
      [When("they choose to collect their order")]
      public async Task WhenTheyChooseToCollectTheirOrder()
      {
--        if (orderingContext.PlacedOrderNo == null)
+-        if (orderingContext.CurrentOrderNo == null)
 -        {
 -            var orderRequest = new PlaceOrderRequestObjectMother().Build();
 -            var placedOrder = await orderingApiDriver
 -                .PlaceOrder(orderRequest)
 -                .Execute();
--            orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+-            orderingContext.CurrentOrderNo = placedOrder.OrderNo;
 -        }
 +        await orderingContext.EnsureOrderPlaced();
  
          orderCollectionDetails = await orderingApiDriver
-             .SetForCollection(orderingContext.PlacedOrderNo ?? throw new InvalidOperationException("No order placed."))
+             .SetForCollection(orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order"))
 ```
 
 ### WIMP.Specs/Support/OrderingContext.cs
@@ -49,17 +49,17 @@ This document shows the differences between the Before and After implementations
 -public class OrderingContext
 +public class OrderingContext(OrderingApiDriver orderingApiDriver)
  {
-     public int? PlacedOrderNo { get; set; }
+     public int? CurrentOrderNo { get; set; }
 +
 +    public async Task EnsureOrderPlaced()
 +    {
-+        if (PlacedOrderNo == null)
++        if (CurrentOrderNo == null)
 +        {
 +            var orderRequest = new PlaceOrderRequestObjectMother().Build();
 +            var placedOrder = await orderingApiDriver
 +                .PlaceOrder(orderRequest)
 +                .Execute();
-+            PlacedOrderNo = placedOrder.OrderNo;
++            CurrentOrderNo = placedOrder.OrderNo;
 +        }
 +    }
  }

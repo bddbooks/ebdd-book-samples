@@ -34,7 +34,7 @@ This document shows the differences between the Before and After implementations
 -      | 2026-03-15 | $600 | $200      | $400       | $600          |
 +  Scenario: Weekly sales report provided for a realistic traffic
 +    Given sales traffic from "realistic-traffic.csv"
-     And the restaurant owner is logged in
+     And the restaurant owner is authenticated
      When the sales report is requested for the week beginning 2026-03-09
      Then the report should show:
 ```

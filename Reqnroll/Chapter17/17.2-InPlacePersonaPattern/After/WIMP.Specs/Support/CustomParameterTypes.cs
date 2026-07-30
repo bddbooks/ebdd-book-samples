@@ -14,8 +14,8 @@ public class CustomParameterTypes(OrderingContext orderingContext)
     [StepArgumentTransformation("the order|the placed order", Name = "order")]
     public int ConvertOrder()
     {
-        return orderingContext.PlacedOrderNo ??
-            throw new InvalidOperationException("Order not chosen");
+        return orderingContext.CurrentOrderNo ??
+            throw new InvalidOperationException("No current order");
     }
 
     [StepArgumentTransformation(@"order ([A-Z])", Name = "order")]

@@ -71,6 +71,6 @@ This document shows the differences between the Before and After implementations
 +        var placedOrder = await backdoorApiDriver
 +            .PrepareOrder(DomainDefaults.CustomerName, orderRequest, OrderStatus.WaitingForPickup)
              .Execute();
-         orderingContext.PlacedOrderNo = placedOrder.OrderNo;
+         orderingContext.CurrentOrderNo = placedOrder.OrderNo;
      }
 ```
