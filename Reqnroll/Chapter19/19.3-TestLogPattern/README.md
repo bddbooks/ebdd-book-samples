@@ -477,7 +477,7 @@ This document shows the differences between the Before and After implementations
 +            {
 +                result = await DoExecute();
 +            }
-+            Logger.LogInformation("{TestActionName} executed successfully in {Duration} with { Result}.", TestActionName, stopwatch.Elapsed, result);
++            Logger.LogInformation("{TestActionName} executed successfully in {Duration} with {Result}.", TestActionName, stopwatch.Elapsed, result);
              return result;
          }
          catch (Exception ex)

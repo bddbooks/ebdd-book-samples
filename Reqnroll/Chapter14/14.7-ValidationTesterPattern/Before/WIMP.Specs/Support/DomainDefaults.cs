@@ -17,5 +17,5 @@ public static class DomainDefaults
             style ?? PizzaStyle);
     }
 
-    public const OrderCollection OrderCollection = App.Models.OrderCollection.Delivery;
+    public const DeliveryMethod DeliveryMethod = App.Models.DeliveryMethod.Delivery;
 }

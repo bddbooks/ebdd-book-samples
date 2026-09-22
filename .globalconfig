@@ -1,0 +1,4 @@
+is_global = true
+
+# Hide MSTest warning about explicitly specifying the parallel behavior
+dotnet_diagnostic.MSTEST0001.severity = none

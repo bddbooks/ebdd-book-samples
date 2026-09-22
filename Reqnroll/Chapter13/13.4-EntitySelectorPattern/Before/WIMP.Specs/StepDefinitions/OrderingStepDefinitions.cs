@@ -18,8 +18,8 @@ public class OrderingStepDefinitions(OrderingContext orderingContext)
         foreach (var row in ordersTable.Rows)
         {
             // A better way of processing data tables is shown in Chapter 14, Data table accessor pattern.
-            int? orderNo = ordersTable.ContainsColumn("Order number") ? int.Parse(row["Order number"]) : null;
-            var placingTime = TimeSpan.Parse(row["Placed At"]);
+            int? orderNo = ordersTable.ContainsColumn("order number") ? int.Parse(row["order number"]) : null;
+            var placingTime = TimeSpan.Parse(row["placed at"]);
 
             var order = OrderService.PlaceOrder("Rebecca", "Margherita", placingTime, orderNo);
             orderingContext.PlacedOrders.Add(order);

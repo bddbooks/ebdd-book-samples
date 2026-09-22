@@ -121,7 +121,7 @@ Uncommenting the `<DefineConstants>` setting in `WIMP.App.csproj` activates this
    <ItemGroup>
 +    <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
 +
-     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.4" />
+     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.12" />
      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
      <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
 ```

@@ -63,10 +63,10 @@ Uncommenting the `<DefineConstants>` setting in `WIMP.App.csproj` activates such
 
 [View file](After/WIMP.Specs/Support/Logging/AppLogContext.cs#L11)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/Logging/AppLogContext.cs#L14-L34)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/Logging/AppLogContext.cs#L14-L44)</sub>
 
 ```diff
-@@ -11,12 +11,27 @@ namespace WIMP.Specs.Support.Logging;
+@@ -11,12 +11,37 @@ namespace WIMP.Specs.Support.Logging;
  public class AppLogContext
  {
      private readonly ConcurrentQueue<string> logMessages = new();
@@ -91,6 +91,16 @@ Uncommenting the `<DefineConstants>` setting in `WIMP.App.csproj` activates such
 +            throw new CorroborationCheckException(
 +                $"The application log contains warnings or errors:{Environment.NewLine}{issueText}");
 +        }
++    }
++
++    /// <summary>
++    /// Suppresses the health issues that have been collected so far. This can
++    /// be used for special tests where application warnings or errors are
++    /// expected.
++    /// </summary>
++    public void SuppressAppHealthIssues()
++    {
++        healthIssues.Clear();
      }
  
      public void SaveToFile(string outputPath)

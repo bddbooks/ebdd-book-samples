@@ -94,7 +94,7 @@ This document shows the differences between the Before and After implementations
 -            Assert.AreEqual(expectedSales, pizzaValue!.Sales, $"Unexpected sales for '{pizzaName}'.");
 -        }
 -
--        Assert.IsNotNull(generatedReport, "Expected a generated report but it was null.");
+-        Assert.IsNotNull(generatedReport, "Report is not generated.");
 -        AssertPizzaSales("Pepperoni", pepperoniSales);
 -        AssertPizzaSales("Margherita", margheritaSales);
 -        AssertPizzaSales("BBQ", bbqSales);
@@ -103,14 +103,14 @@ This document shows the differences between the Before and After implementations
 -    [Then("there should be a by day breakdown on the report")]
 -    public void ThenThereShouldBeAByDayBreakdownOnTheReport()
 -    {
--        Assert.IsNotNull(generatedReport, "Expected a generated report but it was null.");
+-        Assert.IsNotNull(generatedReport, "Report is not generated.");
 -        Assert.HasCount(7, generatedReport!.SalesByDay, $"Expected sales data for 7 days but found {generatedReport.SalesByDay.Count}.");
 -    }
 -
 -    [Then("all values should be also shown as percentages of the total")]
 -    public void ThenAllValuesShouldBeAlsoShownAsPercentagesOfTheTotal()
 -    {
--        Assert.IsNotNull(generatedReport, "Expected a generated report but it was null.");
+-        Assert.IsNotNull(generatedReport, "Report is not generated.");
 -        Assert.AreEqual(100, generatedReport!.TotalSales.Percentage, $"Expected total sales percentage to be 100% but got {generatedReport.TotalSales.Percentage}%");
 -        foreach (var pizzaReport in generatedReport.SalesByPizza)
 -        {
@@ -183,7 +183,7 @@ This document shows the differences between the Before and After implementations
  
    <ItemGroup>
 +    <PackageReference Include="DiffPlex" Version="1.9.0" />
-     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.4" />
+     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.12" />
      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
      <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
 ```

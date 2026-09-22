@@ -4,7 +4,7 @@ This document shows the differences between the Before and After implementations
 
 ## Summary of Changes
 
-- 📝 Modified [WIMP.Specs/Drivers/AuthenticationRestApiDriver.cs](#wimpspecsdriversauthenticationrestapidrivercs)
+- 📝 Modified [WIMP.Specs/Drivers/AuthenticationApiDriver.cs](#wimpspecsdriversauthenticationapidrivercs)
 - ➕ Added [WIMP.Specs/Drivers/AuthenticationServiceDriver.cs](#wimpspecsdriversauthenticationservicedrivercs)
 - ➕ Added [WIMP.Specs/Drivers/IAuthenticationDriver.cs](#wimpspecsdriversiauthenticationdrivercs)
 - 📝 Modified [WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs](#wimpspecsstepdefinitionsauthenticationstepdefinitionscs)
@@ -12,11 +12,11 @@ This document shows the differences between the Before and After implementations
 
 ## Detailed Changes
 
-### WIMP.Specs/Drivers/AuthenticationRestApiDriver.cs
+### WIMP.Specs/Drivers/AuthenticationApiDriver.cs
 
-[View file](After/WIMP.Specs/Drivers/AuthenticationRestApiDriver.cs#L5)
+[View file](After/WIMP.Specs/Drivers/AuthenticationApiDriver.cs#L5)
 
-<sub>[Jump to change](After/WIMP.Specs/Drivers/AuthenticationRestApiDriver.cs#L8)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Drivers/AuthenticationApiDriver.cs#L8)</sub>
 
 ```diff
 @@ -5,7 +5,7 @@ using WIMP.Specs.Support;
@@ -24,7 +24,7 @@ This document shows the differences between the Before and After implementations
  namespace WIMP.Specs.Drivers;
  
 -public class AuthenticationApiDriver(RestApiContext restApiContext)
-+public class AuthenticationRestApiDriver(RestApiContext restApiContext) : IAuthenticationDriver
++public class AuthenticationApiDriver(RestApiContext restApiContext) : IAuthenticationDriver
  {
      public TestAction<LoginResponse> Login(string customerName, string password) =>
          new LambdaAction<LoginResponse>("Login", async () =>
@@ -91,18 +91,26 @@ This document shows the differences between the Before and After implementations
 
 [View file](After/WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs#L7)
 
-<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs#L10)</sub>
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/AuthenticationStepDefinitions.cs#L10-L17)</sub>
 
 ```diff
-@@ -7,7 +7,7 @@ using WIMP.Specs.Support;
+@@ -7,14 +7,14 @@ using WIMP.Specs.Support;
  namespace WIMP.Specs.StepDefinitions;
  
  [Binding]
--public class AuthenticationStepDefinitions(AuthenticationApiDriver authApiDriver)
-+public class AuthenticationStepDefinitions(IAuthenticationDriver authApiDriver)
+-public class AuthenticationStepDefinitions(AuthenticationApiDriver authenticationApiDriver)
++public class AuthenticationStepDefinitions(IAuthenticationDriver authenticationDriver)
  {
      private TestActionResult<LoginResponse> loginResult = TestActionResult<LoginResponse>.NotExecuted;
  
+     [When("the customer attempts to log in with a wrong password")]
+     public async Task WhenTheCustomerAttemptsToLogInWithAWrongPassword()
+     {
+-        loginResult = await authenticationApiDriver.Login(DomainDefaults.CustomerName, DomainDefaults.WrongPassword).AttemptExecute();
++        loginResult = await authenticationDriver.Login(DomainDefaults.CustomerName, DomainDefaults.WrongPassword).AttemptExecute();
+     }
+ 
+     [Then("the login should fail with {string}")]
 ```
 
 ### WIMP.Specs/Support/DiConfiguration.cs
@@ -133,7 +141,7 @@ This document shows the differences between the Before and After implementations
 +    {
 +        if (Environment.GetEnvironmentVariable("WIMP_TEST_TARGET") == "rest")
 +        {
-+            scenarioContainer.RegisterTypeAs<AuthenticationRestApiDriver, IAuthenticationDriver>();
++            scenarioContainer.RegisterTypeAs<AuthenticationApiDriver, IAuthenticationDriver>();
 +        }
 +        else
 +        {

@@ -23,7 +23,7 @@ public abstract class TestAction<TResult>(ILoggerFactory loggerFactory, string a
             {
                 result = await DoExecute();
             }
-            Logger.LogInformation("{TestActionName} executed successfully in {Duration} with { Result}.", TestActionName, stopwatch.Elapsed, result);
+            Logger.LogInformation("{TestActionName} executed successfully in {Duration} with {Result}.", TestActionName, stopwatch.Elapsed, result);
             return result;
         }
         catch (Exception ex)

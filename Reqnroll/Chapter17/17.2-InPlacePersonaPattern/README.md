@@ -186,10 +186,10 @@ This document shows the differences between the Before and After implementations
  
 ```
 
-<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L10-L29)</sub>
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L10-L24)</sub>
 
 ```diff
-@@ -8,25 +7,26 @@ namespace WIMP.Specs.StepDefinitions;
+@@ -8,20 +7,21 @@ namespace WIMP.Specs.StepDefinitions;
  
  [Binding]
  public class OrderingStepDefinitions(
@@ -214,12 +214,6 @@ This document shows the differences between the Before and After implementations
          }
      }
  
-     [When("they cancel {order}")]
--    public async Task WhenTheyCancelOrder(int orderNo)
-+    public async Task WhenTheyCancelTheOrder(int orderNo)
-     {
-         await orderingApiDriver.CancelOrder(orderNo).Execute();
-     }
 ```
 
 <sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L37-L47)</sub>

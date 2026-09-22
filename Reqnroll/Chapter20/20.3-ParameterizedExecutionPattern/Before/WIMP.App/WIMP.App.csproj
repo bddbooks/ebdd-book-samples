@@ -17,12 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\..\..\Shared\AppWithRestApi\Properties\**\*.json" Link="Properties\%(RecursiveDir)%(Filename)%(Extension)" />
-    <Compile Include="..\..\..\..\Shared\AppWithRestApi\Program.cs" Link="Program.cs" />
-    <Compile Include="..\..\..\..\Shared\AppWithRestApi\Data\**\*.cs" Link="Data\%(RecursiveDir)%(Filename)%(Extension)" />
-    <Compile Include="..\..\..\..\Shared\AppWithRestApi\Models\**\*.cs" Link="Models\%(RecursiveDir)%(Filename)%(Extension)" />
-    <Compile Include="..\..\..\..\Shared\AppWithRestApi\RestApi\**\*.cs" Link="RestApi\%(RecursiveDir)%(Filename)%(Extension)" />
-    <Compile Include="..\..\..\..\Shared\AppWithRestApi\Services\**\*.cs" Link="Services\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\..\Shared\WIMP.App\Program.cs" Link="Program.cs" />
+    <Compile Include="..\..\..\..\Shared\WIMP.App\Data\**\*.cs" Link="Data\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\..\Shared\WIMP.App\Models\**\*.cs" Link="Models\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\..\Shared\WIMP.App\RestApi\**\*.cs" Link="RestApi\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="..\..\..\..\Shared\WIMP.App\Services\**\*.cs" Link="Services\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>

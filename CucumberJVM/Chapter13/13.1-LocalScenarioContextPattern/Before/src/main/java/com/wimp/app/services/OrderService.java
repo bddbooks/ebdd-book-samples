@@ -1,6 +1,18 @@
+/*
+ * NOTE: This application ("WIMP - Where Is My Pizza") is provided solely to
+ * demonstrate the Behavior-Driven Development scenario automation patterns
+ * described in the book "Effective Behavior-Driven Development" by
+ * Gaspar Nagy and Seb Rose.
+ *
+ * It is NOT a complete or production-ready implementation. It deliberately
+ * uses shortcuts and simplifications (e.g. authentication, data storage,
+ * error handling, security) that are NOT suitable for a real application.
+ * Do not use this code as a basis for production software.
+ */
+
 package com.wimp.app.services;
 
-import com.wimp.app.infrastructure.DataContext;
+import com.wimp.app.infrastructure.DataRepository;
 import com.wimp.app.models.Order;
 import com.wimp.app.models.OrderStatus;
 
@@ -12,7 +24,7 @@ public class OrderService {
 
         Order order = new Order(orderNo, customerName, pizzaName);
         setStatus(order, OrderStatus.PLACED);
-        DataContext.INSTANCE.saveOrder(order);
+        DataRepository.INSTANCE.saveOrder(order);
     }
 
     private static void setStatus(Order order, OrderStatus status) {
@@ -20,7 +32,7 @@ public class OrderService {
     }
 
     public static void cancelOrder(String customerName, int orderNo) {
-        Order order = DataContext.INSTANCE.getOrderByOrderNr(orderNo);
+        Order order = DataRepository.INSTANCE.getOrderByOrderNr(orderNo);
         if (order == null) {
             throw new RuntimeException("Order " + orderNo + " does not exist.");
         }

@@ -50,21 +50,22 @@ This document shows the differences between the Before and After implementations
  namespace WIMP.Specs.StepDefinitions;
  
  [Binding]
--public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver, NotificationsApiDriver notificationsApiDriver)
-+public class OrderingStepDefinitions(TimeServiceDriver timeServiceDriver, OrderingApiDriver orderingApiDriver, NotificationsApiDriver notificationsApiDriver)
+-public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver)
++public class OrderingStepDefinitions(TimeServiceDriver timeServiceDriver, OrderingApiDriver orderingApiDriver)
  {
      public record OrderRequestData(TimeSpan ExpectedDeliveryTime);
  
 ```
 
-<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L18-L30)</sub>
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L19-L23)</sub>
 
 ```diff
-@@ -15,23 +15,19 @@ public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver, Notifi
+@@ -15,14 +15,12 @@ public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver)
      {
-         var orderData = dataTable.CreateInstance<OrderRequestData>();
+         var orderData = orderDataTable.CreateInstance<OrderRequestData>();
          var expectedDeliveryTime = TimeOnly.FromTimeSpan(orderData.ExpectedDeliveryTime);
--
+-        //NOTE: The expectedDeliveryTime is not used, because of the workaround we apply. It will be used once the pattern is applied.
+ 
 -        // With the real time service we cannot fast-forward time, so cannot use the specified
 -        // expectedDeliveryTime. Instead, we force the expected delivery time being in 0.5 seconds,
 -        // and we wait in the WhenTheDeliveryHasNotBeenMadeBy method for the background timer loop
@@ -76,19 +77,23 @@ This document shows the differences between the Before and After implementations
 -            .WithExpectedDeliveryTime(DateTimeOffset.Now.AddSeconds(0.5))
 +            .WithExpectedDeliveryTime(timeServiceDriver.GetTodayTime(expectedDeliveryTime))
              .Build();
--
-         await orderingApiDriver.PlaceOrder(placeOrderRequest).Execute();
-     }
  
+         await orderingApiDriver.PlaceOrder(placeOrderRequest).Execute();
+```
+
+<sub>[Jump to change](After/WIMP.Specs/StepDefinitions/OrderingStepDefinitions.cs#L32)</sub>
+
+```diff
+@@ -31,8 +29,6 @@ public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver)
      [When("the delivery has not been made by {TimeOnly}")]
      public void WhenTheDeliveryHasNotBeenMadeBy(TimeOnly time)
      {
--        //Workaround: see notes above!
+-        //WORKAROUND: see notes above!
+-        //NOTE: The time is not used, because of the workaround we apply. It will be used once the pattern is applied.
 -        Thread.Sleep(TimeSpan.FromMilliseconds(2000));
 +        timeServiceDriver.SetCurrentTime(time);
      }
- 
-     [Then("the customer should receive a notification about the delay")]
+ }
 ```
 
 ### WIMP.Specs/Support/Hooks.cs

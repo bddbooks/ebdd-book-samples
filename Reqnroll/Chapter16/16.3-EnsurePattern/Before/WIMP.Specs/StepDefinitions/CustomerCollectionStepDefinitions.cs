@@ -61,10 +61,9 @@ public class CustomerCollectionStepDefinitions(
     }
 
     [Then("a collection receipt should be printed with")]
-    public void ThenACollectionReceiptShouldBePrintedWith(DataTable dataTable)
+    public void ThenACollectionReceiptShouldBePrintedWith(DataTable expectedCollectionDetailsDataTable)
     {
         Assert.IsNotNull(orderCollectionDetails, "The order was not set to customer-collection");
-        int expectedBoxes = int.Parse(dataTable.Rows[0]["boxes to be collected"]);
-        Assert.AreEqual(expectedBoxes, orderCollectionDetails.BoxesToBeCollected, "Invalid number of boxes for customer-collection");
+        expectedCollectionDetailsDataTable.CompareToInstance(orderCollectionDetails);
     }
 }

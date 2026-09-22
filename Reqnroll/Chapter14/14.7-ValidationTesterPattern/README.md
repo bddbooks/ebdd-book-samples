@@ -44,14 +44,14 @@ This document shows the differences between the Before and After implementations
 +
    Examples:
 -    | description                  | name    | email            | phone         | result       |
--    | Everything provided          | Rebecca | becca@galaxy.uni |      12334456 | accepted     |
+-    | Everything provided          | Rebecca | becca@galaxy.uni | 12334456      | accepted     |
 -    | No Name                      |         |                  |               | not accepted |
--    | No Name, but email and phone |         | becca@galaxy.uni |      12334456 | not accepted |
--    | No Name, but phone           |         |                  |      12334456 | not accepted |
--    | Only phone                   | Rebecca |                  |      12334456 | accepted     |
+-    | No Name, but email and phone |         | becca@galaxy.uni | 12334456      | not accepted |
+-    | No Name, but phone           |         |                  | 12334456      | not accepted |
+-    | Only phone                   | Rebecca |                  | 12334456      | accepted     |
 -    | Only email                   | Rebecca | becca@galaxy.uni |               | accepted     |
 -    | Only name                    | Rebecca |                  |               | not accepted |
--    | Invalid email                | Rebecca | invalid-email    |      12334456 | not accepted |
+-    | Invalid email                | Rebecca | invalid-email    | 12334456      | not accepted |
 -    | Invalid phone                | Rebecca | becca@galaxy.uni | invalid-phone | not accepted |
 -    
 +    | description            | country | state | result       |
@@ -95,7 +95,7 @@ This document shows the differences between the Before and After implementations
 @@ -18,4 +18,22 @@ public static class DomainDefaults
      }
  
-     public const OrderCollection OrderCollection = App.Models.OrderCollection.Delivery;
+     public const DeliveryMethod DeliveryMethod = App.Models.DeliveryMethod.Delivery;
 +
 +    public const string CustomerName = "Rebecca";
 +    public const string CustomerEmail = "becca@galaxy.uni";

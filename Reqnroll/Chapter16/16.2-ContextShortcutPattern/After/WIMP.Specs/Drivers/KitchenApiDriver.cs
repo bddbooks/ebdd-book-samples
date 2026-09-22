@@ -13,5 +13,5 @@ public class KitchenApiDriver(RestApiContext restApiContext)
     public TestAction<VoidReturn> SetReady(int orderNo) =>
         new LambdaAction("Order ready to pick up", async () =>
             await restApiContext.ProcessRequest<VoidReturn>(
-                "Order ready to pick up", HttpMethod.Post, $"/api/orders/{orderNo}/ready-for-pickup"));
+                "Order ready to pick up", HttpMethod.Post, $"/api/kitchen/ready-for-pickup/{orderNo}"));
 }

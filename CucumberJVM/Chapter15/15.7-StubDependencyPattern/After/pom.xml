@@ -7,17 +7,19 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.1.0</version>
+    <version>4.1.1</version>
     <relativePath/>
   </parent>
 
   <groupId>com.wimp</groupId>
-  <artifactId>stubdependency</artifactId>
+  <artifactId>stub-dependency</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>25</maven.compiler.release>
+    <!--  This is required for later correct replacement of argLine -->
+    <argLine/>
   </properties>
 
   <dependencyManagement>
@@ -25,14 +27,14 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>6.1.1</version>
+        <version>6.1.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-bom</artifactId>
-        <version>7.34.4</version>
+        <version>7.34.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -40,6 +42,13 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-bom</artifactId>
         <version>3.27.7</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>2.0.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -81,38 +90,80 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-testcontainers</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.5.250</version>
+      <!-- H2 should normally be a test dependency, but our application also uses it for the sake of simple usage of samples -->
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers-mysql</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
   <build>
+    <!-- Compile application Java files from a shared directory (these files are shared across samples) -->
+    <sourceDirectory>${project.basedir}/../../../Shared/WIMP.App/java</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.15.0</version>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <!-- See: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3 -->
+              <goal>properties</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.6</version>
         <configuration>
           <properties>
             <!-- Work around. Surefire does not include enough
                  information to disambiguate between different
                  examples and scenarios. -->
-            <configurationParameters>
-              cucumber.junit-platform.naming-strategy=long
-            </configurationParameters>
+            <configurationParameters>cucumber.junit-platform.naming-strategy=long</configurationParameters>
           </properties>
+          <!-- See: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3 -->
+          <!--suppress UnresolvedMavenProperty -->
+          <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
         </configuration>
       </plugin>
     </plugins>

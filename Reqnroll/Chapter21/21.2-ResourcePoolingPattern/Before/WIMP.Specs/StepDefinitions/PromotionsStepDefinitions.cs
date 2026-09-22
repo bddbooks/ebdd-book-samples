@@ -19,10 +19,10 @@ public class PromotionsStepDefinitions(MenuApiDriver menuApiDriver, PromotionsAp
     }
 
     [Then("the following items should be offered")]
-    public void ThenTheFollowingItemsShouldBeOffered(DataTable dataTable)
+    public void ThenTheFollowingItemsShouldBeOffered(DataTable expectedItemsDataTable)
     {
         var promotionalItems = offeredMenuItems!.Where(mi => mi.OriginalPrice != mi.Price);
-        dataTable.CompareToSet(promotionalItems);
+        expectedItemsDataTable.CompareToSet(promotionalItems);
     }
 
     [Given("the {string} promotion is active")]

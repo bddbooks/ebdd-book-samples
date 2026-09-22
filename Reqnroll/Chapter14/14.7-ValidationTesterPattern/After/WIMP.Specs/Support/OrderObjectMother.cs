@@ -11,7 +11,7 @@ public class OrderObjectMother
         // add default item
         order.AddItem(DomainDefaults.PizzaItemDefaultInstance());
         // set default collection
-        order.Collection = DomainDefaults.OrderCollection;
+        order.DeliveryMethod = DomainDefaults.DeliveryMethod;
     }
 
     public Order Build()
@@ -21,7 +21,7 @@ public class OrderObjectMother
 
     public OrderObjectMother WithCustomerCollection()
     {
-        order.Collection = OrderCollection.CustomerCollection;
+        order.DeliveryMethod = DeliveryMethod.CustomerCollection;
         return this;
     }
 

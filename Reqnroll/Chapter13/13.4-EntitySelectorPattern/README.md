@@ -39,13 +39,13 @@ This document shows the differences between the Before and After implementations
 -    [Then("the order placed at {word} should be taken")]
 -    public void ThenTheOrderPlacedAtShouldBeTaken(string placedAt)
 +    [Then("{order} should be taken")]
-+    public void ThenTheOrderShouldBeTaken(int orderNo)
++    public void ThenTheOrderShouldBeTaken(int expectedTakenOrderNo)
      {
          Assert.IsNotNull(orderingContext.TakenOrderNo);
 -        var expectedTakenOrder = orderingContext.PlacedOrders
 -            .First(o => o.PlacingTime == TimeSpan.Parse(placedAt));
 -        Assert.AreEqual(expectedTakenOrder.OrderNo, orderingContext.TakenOrderNo);
-+        Assert.AreEqual(orderNo, orderingContext.TakenOrderNo);
++        Assert.AreEqual(expectedTakenOrderNo, orderingContext.TakenOrderNo);
      }
  
      #region Reset database for every scenario execution

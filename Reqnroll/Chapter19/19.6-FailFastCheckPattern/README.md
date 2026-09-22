@@ -29,8 +29,8 @@ In order to trigger a fail-fast check errors do one of the following steps:
          var salesTraffic =
              csv.GetRecords<DailyPizzaSales>().ToArray();
  
-+        // Fail-fast check: if the CSV file is empty, we can fail because
-+        // that might be a sign of some environmental error.
++        // Fail-fast check: If the CSV file is empty, we can fail because that
++        // might be a sign of some environmental error.
 +        if (salesTraffic.Length == 0)
 +        {
 +            throw new InvalidOperationException($"The CSV file '{csvFilePath}' was empty!");

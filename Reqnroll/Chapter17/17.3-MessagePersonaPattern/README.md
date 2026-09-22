@@ -63,7 +63,7 @@ This document shows the differences between the Before and After implementations
 +public class CustomParameterTypes(CustomerDriver customerDriver, MessageService messageService)
  {
 +    [StepArgumentTransformation(@"\[([\w\-]+(?:,.+)?)\]", Name = "user-message")]
-+    public string ConvertOrder(string messageNameSpecification)
++    public string ConvertUserMessage(string messageNameSpecification)
 +    {
 +        string language = customerDriver.GetInterfaceLanguage();
 +        string[] specParts = messageNameSpecification.Split(',');

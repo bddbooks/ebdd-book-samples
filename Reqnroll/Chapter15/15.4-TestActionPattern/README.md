@@ -85,19 +85,41 @@ This document shows the differences between the Before and After implementations
 
 ### WIMP.Specs/Drivers/NotificationsApiDriver.cs
 
-[View file](After/WIMP.Specs/Drivers/NotificationsApiDriver.cs#L5)
+[View file](After/WIMP.Specs/Drivers/NotificationsApiDriver.cs#L1)
+
+```diff
+@@ -1,5 +1,3 @@
+-using System.Diagnostics;
+-
+ using WIMP.App.Models;
+ using WIMP.Specs.Support;
+ 
+```
 
 <sub>[Jump to change](After/WIMP.Specs/Drivers/NotificationsApiDriver.cs#L8-L11)</sub>
 
 ```diff
-@@ -5,9 +5,8 @@ namespace WIMP.Specs.Drivers;
+@@ -7,22 +5,8 @@ namespace WIMP.Specs.Drivers;
  
  public class NotificationsApiDriver(RestApiContext restApiContext)
  {
 -    public async Task<IReadOnlyCollection<Notification>> GetNotifications(string customerName)
 -    {
--        return await restApiContext.GetRequest<Notification[]>(
--            $"/api/notifications/{customerName}");
+-        Console.WriteLine("Executing Get notifications...");
+-        var stopwatch = Stopwatch.StartNew();
+-        try
+-        {
+-            var response = await restApiContext.GetRequest<Notification[]>(
+-                $"/api/notifications/{customerName}");
+-            Console.WriteLine(
+-                $"Get notifications executed successfully in {stopwatch.Elapsed}.");
+-            return response;
+-        }
+-        catch (Exception ex)
+-        {
+-            Console.WriteLine($"Get notifications failed: {ex.Message}");
+-            throw;
+-        }
 -    }
 +    public TestAction<IReadOnlyCollection<Notification>> GetNotifications(string customerName) =>
 +        new LambdaAction<IReadOnlyCollection<Notification>>("Get notifications", async () =>
@@ -108,37 +130,67 @@ This document shows the differences between the Before and After implementations
 
 ### WIMP.Specs/Drivers/OrderingApiDriver.cs
 
-[View file](After/WIMP.Specs/Drivers/OrderingApiDriver.cs#L8)
+[View file](After/WIMP.Specs/Drivers/OrderingApiDriver.cs#L1)
+
+```diff
+@@ -1,4 +1,3 @@
+-using System.Diagnostics;
+ using System.Net;
+ 
+ using WIMP.App.Models;
+```
 
 <sub>[Jump to change](After/WIMP.Specs/Drivers/OrderingApiDriver.cs#L11-L21)</sub>
 
 ```diff
-@@ -8,17 +8,15 @@ namespace WIMP.Specs.Drivers;
+@@ -9,42 +8,15 @@ namespace WIMP.Specs.Drivers;
  
  public class OrderingApiDriver(RestApiContext restApiContext)
  {
 -    public async Task<Order> PerformPlaceOrder(PlaceOrderRequest placeOrderRequest)
 -    {
--        return await restApiContext.ProcessRequest<Order>(
--            "Place order", HttpMethod.Post, "/api/orders",
--            placeOrderRequest, HttpStatusCode.Created);
--    }
+-        Console.WriteLine("Executing Place order...");
+-        var stopwatch = Stopwatch.StartNew();
+-        try
+-        {
+-            var response = await restApiContext.ProcessRequest<Order>(
 +    public TestAction<Order> PlaceOrder(PlaceOrderRequest placeOrderRequest) =>
 +        new LambdaAction<Order>("Place order", async () =>
 +            await restApiContext.ProcessRequest<Order>(
-+                "Place order", HttpMethod.Post, "/api/orders",
+                 "Place order", HttpMethod.Post, "/api/orders",
+-                placeOrderRequest, HttpStatusCode.Created);
+-            Console.WriteLine(
+-                $"Place order executed successfully in {stopwatch.Elapsed}.");
+-            return response;
+-        }
+-        catch (Exception ex)
+-        {
+-            Console.WriteLine($"Place order failed: {ex.Message}");
+-            throw;
+-        }
+-    }
 +                placeOrderRequest, HttpStatusCode.Created));
  
 -    public async Task PerformCancelOrder(int orderNumber)
 -    {
--        await restApiContext.ProcessRequest<VoidReturn>(
--            "Cancel order", HttpMethod.Delete, $"/api/orders/{orderNumber}",
--            successStatusCode: HttpStatusCode.NoContent);
--    }
+-        Console.WriteLine("Executing Cancel order...");
+-        var stopwatch = Stopwatch.StartNew();
+-        try
+-        {
 +    public TestAction<VoidReturn> CancelOrder(int orderNumber) =>
 +        new LambdaAction("Cancel order", async () =>
-+            await restApiContext.ProcessRequest<VoidReturn>(
-+                "Cancel order", HttpMethod.Delete, $"/api/orders/{orderNumber}",
+             await restApiContext.ProcessRequest<VoidReturn>(
+                 "Cancel order", HttpMethod.Delete, $"/api/orders/{orderNumber}",
+-                successStatusCode: HttpStatusCode.NoContent);
+-            Console.WriteLine(
+-                $"Cancel order executed successfully in {stopwatch.Elapsed}.");
+-        }
+-        catch (Exception ex)
+-        {
+-            Console.WriteLine($"Cancel order failed: {ex.Message}");
+-            throw;
+-        }
+-    }
 +                successStatusCode: HttpStatusCode.NoContent));
  }
 ```

@@ -9,13 +9,13 @@ Rule: Customers must supply acceptable contact details when placing an order for
     Then the contact details are <result>
   Examples:
     | description                  | name    | email            | phone         | result       |
-    | Everything provided          | Rebecca | becca@galaxy.uni |      12334456 | accepted     |
+    | Everything provided          | Rebecca | becca@galaxy.uni | 12334456      | accepted     |
     | No Name                      |         |                  |               | not accepted |
-    | No Name, but email and phone |         | becca@galaxy.uni |      12334456 | not accepted |
-    | No Name, but phone           |         |                  |      12334456 | not accepted |
-    | Only phone                   | Rebecca |                  |      12334456 | accepted     |
+    | No Name, but email and phone |         | becca@galaxy.uni | 12334456      | not accepted |
+    | No Name, but phone           |         |                  | 12334456      | not accepted |
+    | Only phone                   | Rebecca |                  | 12334456      | accepted     |
     | Only email                   | Rebecca | becca@galaxy.uni |               | accepted     |
     | Only name                    | Rebecca |                  |               | not accepted |
-    | Invalid email                | Rebecca | invalid-email    |      12334456 | not accepted |
+    | Invalid email                | Rebecca | invalid-email    | 12334456      | not accepted |
     | Invalid phone                | Rebecca | becca@galaxy.uni | invalid-phone | not accepted |
     

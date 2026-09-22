@@ -34,6 +34,16 @@ public class AppLogContext
         }
     }
 
+    /// <summary>
+    /// Suppresses the health issues that have been collected so far. This can
+    /// be used for special tests where application warnings or errors are
+    /// expected.
+    /// </summary>
+    public void SuppressAppHealthIssues()
+    {
+        healthIssues.Clear();
+    }
+
     public void SaveToFile(string outputPath)
     {
         File.WriteAllLines(outputPath, logMessages.ToArray());

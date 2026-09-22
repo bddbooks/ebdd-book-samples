@@ -6,15 +6,16 @@ using WIMP.Specs.Support;
 namespace WIMP.Specs.StepDefinitions;
 
 [Binding]
-public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver, NotificationsApiDriver notificationsApiDriver)
+public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver)
 {
     public record OrderRequestData(TimeSpan ExpectedDeliveryTime);
 
     [Given("they have placed an order with")]
-    public async Task GivenTheyHavePlacedAnOrderWith(DataTable dataTable)
+    public async Task GivenTheyHavePlacedAnOrderWith(DataTable orderDataTable)
     {
-        var orderData = dataTable.CreateInstance<OrderRequestData>();
+        var orderData = orderDataTable.CreateInstance<OrderRequestData>();
         var expectedDeliveryTime = TimeOnly.FromTimeSpan(orderData.ExpectedDeliveryTime);
+        //NOTE: The expectedDeliveryTime is not used, because of the workaround we apply. It will be used once the pattern is applied.
 
         // With the real time service we cannot fast-forward time, so cannot use the specified
         // expectedDeliveryTime. Instead, we force the expected delivery time being in 0.5 seconds,
@@ -30,18 +31,8 @@ public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver, Notifi
     [When("the delivery has not been made by {TimeOnly}")]
     public void WhenTheDeliveryHasNotBeenMadeBy(TimeOnly time)
     {
-        //Workaround: see notes above!
+        //WORKAROUND: see notes above!
+        //NOTE: The time is not used, because of the workaround we apply. It will be used once the pattern is applied.
         Thread.Sleep(TimeSpan.FromMilliseconds(2000));
-    }
-
-    [Then("the customer should receive a notification about the delay")]
-    public async Task ThenTheCustomerShouldReceiveANotificationAboutTheDelay()
-    {
-        var notifications = await notificationsApiDriver.GetNotifications(DomainDefaults.CustomerName).Execute();
-
-        Assert.IsNotNull(notifications);
-        Assert.IsTrue(notifications.Any(n =>
-                n.Message.Contains("delayed", StringComparison.OrdinalIgnoreCase)),
-            "Expected a delay notification but none was found.");
     }
 }

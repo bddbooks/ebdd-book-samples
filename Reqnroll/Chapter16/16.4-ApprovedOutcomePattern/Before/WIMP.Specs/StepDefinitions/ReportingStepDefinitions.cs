@@ -60,7 +60,7 @@ public class ReportingStepDefinitions(
             Assert.AreEqual(expectedSales, pizzaValue!.Sales, $"Unexpected sales for '{pizzaName}'.");
         }
 
-        Assert.IsNotNull(generatedReport, "Expected a generated report but it was null.");
+        Assert.IsNotNull(generatedReport, "Report is not generated.");
         AssertPizzaSales("Pepperoni", pepperoniSales);
         AssertPizzaSales("Margherita", margheritaSales);
         AssertPizzaSales("BBQ", bbqSales);
@@ -69,14 +69,14 @@ public class ReportingStepDefinitions(
     [Then("there should be a by day breakdown on the report")]
     public void ThenThereShouldBeAByDayBreakdownOnTheReport()
     {
-        Assert.IsNotNull(generatedReport, "Expected a generated report but it was null.");
+        Assert.IsNotNull(generatedReport, "Report is not generated.");
         Assert.HasCount(7, generatedReport!.SalesByDay, $"Expected sales data for 7 days but found {generatedReport.SalesByDay.Count}.");
     }
 
     [Then("all values should be also shown as percentages of the total")]
     public void ThenAllValuesShouldBeAlsoShownAsPercentagesOfTheTotal()
     {
-        Assert.IsNotNull(generatedReport, "Expected a generated report but it was null.");
+        Assert.IsNotNull(generatedReport, "Report is not generated.");
         Assert.AreEqual(100, generatedReport!.TotalSales.Percentage, $"Expected total sales percentage to be 100% but got {generatedReport.TotalSales.Percentage}%");
         foreach (var pizzaReport in generatedReport.SalesByPizza)
         {

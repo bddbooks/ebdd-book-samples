@@ -18,7 +18,7 @@ public class DiConfiguration
     {
         if (Environment.GetEnvironmentVariable("WIMP_TEST_TARGET") == "rest")
         {
-            scenarioContainer.RegisterTypeAs<AuthenticationRestApiDriver, IAuthenticationDriver>();
+            scenarioContainer.RegisterTypeAs<AuthenticationApiDriver, IAuthenticationDriver>();
         }
         else
         {

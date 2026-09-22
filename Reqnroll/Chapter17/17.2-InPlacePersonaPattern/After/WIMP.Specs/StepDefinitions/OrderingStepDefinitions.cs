@@ -26,7 +26,7 @@ public class OrderingStepDefinitions(
     }
 
     [When("they cancel {order}")]
-    public async Task WhenTheyCancelTheOrder(int orderNo)
+    public async Task WhenTheyCancelOrder(int orderNo)
     {
         await orderingApiDriver.CancelOrder(orderNo).Execute();
     }

@@ -1,0 +1,5 @@
+# This setting enables DatabaseContextCustomizerFactory which configures whether
+# to use stub or real database.
+# NOTE: In this sample only stub database can be used. For examples using real
+# databases, check samples from chapter 18 or later.
+org.springframework.test.context.ContextCustomizerFactory=com.wimp.app.specs.support.DatabaseContextCustomizerFactory
