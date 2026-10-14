@@ -61,7 +61,7 @@ Uncommenting the `<DefineConstants>` setting in `WIMP.App.csproj` activates this
 @@ -8,7 +8,8 @@ namespace WIMP.Specs.Support;
  
  [Binding]
- public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, ReqnrollLoggerProvider reqnrollLoggerProvider,
+ public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, TestLoggerProvider testLoggerProvider,
 -    ILoggerFactory loggerFactory, IScenarioContext scenarioContext, IReqnrollOutputHelper outputHelper)
 +    ILoggerFactory loggerFactory, IScenarioContext scenarioContext, IReqnrollOutputHelper outputHelper,
 +    TestFileSystem testFileSystem)

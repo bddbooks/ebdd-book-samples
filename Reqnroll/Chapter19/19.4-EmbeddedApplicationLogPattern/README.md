@@ -7,7 +7,7 @@ This document shows the differences between the Before and After implementations
 - 📝 Modified [WIMP.Specs/Support/Hooks.cs](#wimpspecssupporthookscs)
 - ➕ Added [WIMP.Specs/Support/Logging/EmbeddedAppHostLogger.cs](#wimpspecssupportloggingembeddedapphostloggercs)
 - ➕ Added [WIMP.Specs/Support/Logging/EmbeddedAppHostLoggerProvider.cs](#wimpspecssupportloggingembeddedapphostloggerprovidercs)
-- 📝 Modified [WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs](#wimpspecssupportloggingreqnrollloggerprovidercs)
+- 📝 Modified [WIMP.Specs/Support/Logging/TestLoggerProvider.cs](#wimpspecssupportloggingtestloggerprovidercs)
 - 📝 Modified [WIMP.Specs/Support/WimpAppHost.cs](#wimpspecssupportwimpapphostcs)
 
 ## Detailed Changes
@@ -24,13 +24,13 @@ This document shows the differences between the Before and After implementations
  
  [Binding]
 -public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext)
-+public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, ReqnrollLoggerProvider reqnrollLoggerProvider)
++public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, TestLoggerProvider testLoggerProvider)
  {
      [BeforeScenario]
      public void CreateAppHost()
      {
 -        appHostingContext.AppHost = new WimpAppHost(appLogContext);
-+        appHostingContext.AppHost = new WimpAppHost(appLogContext, reqnrollLoggerProvider);
++        appHostingContext.AppHost = new WimpAppHost(appLogContext, testLoggerProvider);
      }
  
      [AfterScenario]
@@ -52,10 +52,10 @@ This document shows the differences between the Before and After implementations
 +
 +/// <summary>
 +/// An <see cref="ILogger"/> implementation that forwards log entries to Reqnroll output helper
-+/// via the <see cref="ReqnrollLogger"/> base class.
++/// via the <see cref="TestLogger"/> base class.
 +/// </summary>
 +internal class EmbeddedAppHostLogger(string categoryName, IExternalScopeProvider scopeProvider, IReqnrollOutputHelper outputHelper, IScenarioContext scenarioContext) :
-+    ReqnrollLogger(categoryName, scopeProvider, outputHelper)
++    TestLogger(categoryName, scopeProvider, outputHelper)
 +{
 +    private const LogLevel MinimumAppLogLevel = LogLevel.Warning;
 +    private const LogLevel MinimumAppLogLevelForActions = LogLevel.Information;
@@ -88,12 +88,12 @@ This document shows the differences between the Before and After implementations
 +
 +/// <summary>
 +/// An <see cref="ILoggerProvider"/> implementation that creates <see cref="ILogger"/> loggers,
-+/// that forwards log entries to Reqnroll output helper via the <see cref="ReqnrollLogger"/> base class.
++/// that forwards log entries to Reqnroll output helper via the <see cref="TestLogger"/> base class.
 +/// </summary>
-+public sealed class EmbeddedAppHostLoggerProvider(ReqnrollLoggerProvider reqnrollLoggerProvider) : ILoggerProvider
++public sealed class EmbeddedAppHostLoggerProvider(TestLoggerProvider testLoggerProvider) : ILoggerProvider
 +{
 +    public ILogger CreateLogger(string categoryName) =>
-+        reqnrollLoggerProvider.CreateEmbeddedAppHostLogger(categoryName);
++        testLoggerProvider.CreateEmbeddedAppHostLogger(categoryName);
 +
 +    public void Dispose()
 +    {
@@ -101,30 +101,30 @@ This document shows the differences between the Before and After implementations
 +}
 ```
 
-### WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs
+### WIMP.Specs/Support/Logging/TestLoggerProvider.cs
 
-[View file](After/WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs#L10)
+[View file](After/WIMP.Specs/Support/Logging/TestLoggerProvider.cs#L10)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs#L13)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/Logging/TestLoggerProvider.cs#L13)</sub>
 
 ```diff
 @@ -10,7 +10,7 @@ namespace WIMP.Specs.Support.Logging;
  /// An <see cref="ILoggerProvider"/> implementation that creates <see cref="ILogger"/> loggers,
  /// that forward the log messages to Reqnroll output helper.
  /// </summary>
--public sealed class ReqnrollLoggerProvider(IReqnrollOutputHelper outputHelper) : ILoggerProvider
-+public sealed class ReqnrollLoggerProvider(IReqnrollOutputHelper outputHelper, IScenarioContext scenarioContext) : ILoggerProvider
+-public sealed class TestLoggerProvider(IReqnrollOutputHelper outputHelper) : ILoggerProvider
++public sealed class TestLoggerProvider(IReqnrollOutputHelper outputHelper, IScenarioContext scenarioContext) : ILoggerProvider
  {
      private readonly IExternalScopeProvider scopeProvider = new ScenarioScopeProvider();
  
 ```
 
-<sub>[Jump to change](After/WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs#L51-L53)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/Logging/TestLoggerProvider.cs#L51-L53)</sub>
 
 ```diff
-@@ -48,6 +48,9 @@ public sealed class ReqnrollLoggerProvider(IReqnrollOutputHelper outputHelper) :
+@@ -48,6 +48,9 @@ public sealed class TestLoggerProvider(IReqnrollOutputHelper outputHelper) : ILo
      public ILogger CreateLogger(string categoryName) =>
-         new ReqnrollLogger(categoryName, scopeProvider, outputHelper);
+         new TestLogger(categoryName, scopeProvider, outputHelper);
  
 +    public ILogger CreateEmbeddedAppHostLogger(string categoryName) =>
 +        new EmbeddedAppHostLogger(categoryName, scopeProvider, outputHelper, scenarioContext);
@@ -146,7 +146,7 @@ This document shows the differences between the Before and After implementations
  namespace WIMP.Specs.Support;
  
 -public class WimpAppHost(AppLogContext appLogContext) : WebApplicationFactory<Program>
-+public class WimpAppHost(AppLogContext appLogContext, ReqnrollLoggerProvider reqnrollLoggerProvider) : WebApplicationFactory<Program>
++public class WimpAppHost(AppLogContext appLogContext, TestLoggerProvider testLoggerProvider) : WebApplicationFactory<Program>
  {
      protected override void ConfigureWebHost(IWebHostBuilder builder)
      {
@@ -158,9 +158,9 @@ This document shows the differences between the Before and After implementations
 @@ -22,6 +22,8 @@ public class WimpAppHost(AppLogContext appLogContext) : WebApplicationFactory<Pr
              loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, DebugLoggerProvider>(_ => new DebugLoggerProvider()));
              // log app log entries to AppLogContext
-             loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppHostLoggerProvider>(_ => new AppHostLoggerProvider(appLogContext)));
+             loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppLogContextLoggerProvider>(_ => new AppLogContextLoggerProvider(appLogContext)));
 +            // embed app log to the test log
-+            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, EmbeddedAppHostLoggerProvider>(_ => new EmbeddedAppHostLoggerProvider(reqnrollLoggerProvider)));
++            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, EmbeddedAppHostLoggerProvider>(_ => new EmbeddedAppHostLoggerProvider(testLoggerProvider)));
          });
      }
  }

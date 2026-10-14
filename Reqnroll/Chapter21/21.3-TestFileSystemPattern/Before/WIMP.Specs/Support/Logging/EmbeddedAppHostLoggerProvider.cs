@@ -4,12 +4,12 @@ namespace WIMP.Specs.Support.Logging;
 
 /// <summary>
 /// An <see cref="ILoggerProvider"/> implementation that creates <see cref="ILogger"/> loggers,
-/// that forwards log entries to Reqnroll output helper via the <see cref="ReqnrollLogger"/> base class.
+/// that forwards log entries to Reqnroll output helper via the <see cref="TestLogger"/> base class.
 /// </summary>
-public sealed class EmbeddedAppHostLoggerProvider(ReqnrollLoggerProvider reqnrollLoggerProvider) : ILoggerProvider
+public sealed class EmbeddedAppHostLoggerProvider(TestLoggerProvider testLoggerProvider) : ILoggerProvider
 {
     public ILogger CreateLogger(string categoryName) =>
-        reqnrollLoggerProvider.CreateEmbeddedAppHostLogger(categoryName);
+        testLoggerProvider.CreateEmbeddedAppHostLogger(categoryName);
 
     public void Dispose()
     {

@@ -18,7 +18,7 @@ public class CustomerCollectionStepDefinitions(OrderService orderService)
         order = new OrderObjectMother().WithCustomerCollection().Build();
     }
 
-    [When("the customer provides valid contact details, but:")]
+    [When("the customer provides valid contact details, but")]
     public void WhenTheCustomerProvidesValidContactDetailsBut(DataTable customizationTable)
     {
         var contactDetails = DomainDefaults.ContactDetailsDefaultInstance();

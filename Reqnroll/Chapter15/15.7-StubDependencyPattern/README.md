@@ -53,7 +53,7 @@ This document shows the differences between the Before and After implementations
 -public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver)
 +public class OrderingStepDefinitions(TimeServiceDriver timeServiceDriver, OrderingApiDriver orderingApiDriver)
  {
-     public record OrderRequestData(TimeSpan ExpectedDeliveryTime);
+     public record OrderData(TimeSpan ExpectedDeliveryTime);
  
 ```
 
@@ -62,7 +62,7 @@ This document shows the differences between the Before and After implementations
 ```diff
 @@ -15,14 +15,12 @@ public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver)
      {
-         var orderData = orderDataTable.CreateInstance<OrderRequestData>();
+         var orderData = orderDataTable.CreateInstance<OrderData>();
          var expectedDeliveryTime = TimeOnly.FromTimeSpan(orderData.ExpectedDeliveryTime);
 -        //NOTE: The expectedDeliveryTime is not used, because of the workaround we apply. It will be used once the pattern is applied.
  

@@ -20,7 +20,7 @@ public class PaymentsStepDefinitions {
         this.paymentGatewayScenarioContextProxy = paymentGatewayScenarioContextProxy;
     }
 
-    @When("their payment is authorised by the payment gateway")
+    @When("their payment is authorized by the payment gateway")
     public void theirPaymentIsAuthorisedByThePaymentGateway() throws Exception {
         int orderNo = orderingContext.getCurrentOrderNoVerified();
         payment = paymentApiDriver.authorizePaymentFor(orderNo).execute();

@@ -142,14 +142,14 @@ This document shows the differences between the Before and After implementations
 +    <PackageReference Include="CsvHelper" Version="33.1.0" />
  
      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.12" />
-     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
 ```
 
-<sub>[Jump to change](After/WIMP.Specs/WIMP.Specs.csproj#L33-L39)</sub>
+<sub>[Jump to change](After/WIMP.Specs/WIMP.Specs.csproj#L36-L42)</sub>
 
 ```diff
-@@ -29,4 +30,11 @@
-     <PackageReference Include="Reqnroll.MsTest" Version="3.3.3" />
+@@ -32,4 +33,11 @@
+     <PackageReference Include="Reqnroll.MsTest" Version="3.3.4" />
    </ItemGroup>
  
 +  <ItemGroup>

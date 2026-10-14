@@ -21,7 +21,7 @@ public class WimpAppHost(AppLogContext appLogContext) : WebApplicationFactory<Pr
             // log app log entries to debug console
             loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, DebugLoggerProvider>(_ => new DebugLoggerProvider()));
             // log app log entries to AppLogContext
-            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppHostLoggerProvider>(_ => new AppHostLoggerProvider(appLogContext)));
+            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppLogContextLoggerProvider>(_ => new AppLogContextLoggerProvider(appLogContext)));
         });
     }
 }

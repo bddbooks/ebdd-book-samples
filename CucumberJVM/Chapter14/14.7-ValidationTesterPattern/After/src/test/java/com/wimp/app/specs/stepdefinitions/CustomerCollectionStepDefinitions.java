@@ -25,7 +25,7 @@ public class CustomerCollectionStepDefinitions {
         order = new OrderObjectMother().withCustomerCollection().build();
     }
 
-    @When("the customer provides valid contact details, but:")
+    @When("the customer provides valid contact details, but")
     public void theCustomerProvidesValidContactDetailsBut(DataTable customizationTable) throws Exception {
         if (customizationTable.cell(0, 0).equals("field"))
             customizationTable = customizationTable.transpose();

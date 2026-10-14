@@ -107,13 +107,13 @@ This document shows the differences between the Before and After implementations
 
 ### WIMP.Specs/WIMP.Specs.csproj
 
-[View file](After/WIMP.Specs/WIMP.Specs.csproj#L27)
+[View file](After/WIMP.Specs/WIMP.Specs.csproj#L30)
 
-<sub>[Jump to change](After/WIMP.Specs/WIMP.Specs.csproj#L30-L35)</sub>
+<sub>[Jump to change](After/WIMP.Specs/WIMP.Specs.csproj#L33-L38)</sub>
 
 ```diff
-@@ -27,4 +27,10 @@
-     <PackageReference Include="Reqnroll.MsTest" Version="3.3.3" />
+@@ -30,4 +30,10 @@
+     <PackageReference Include="Reqnroll.MsTest" Version="3.3.4" />
    </ItemGroup>
  
 +  <ItemGroup>

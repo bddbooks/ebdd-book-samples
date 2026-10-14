@@ -8,12 +8,12 @@ namespace WIMP.Specs.StepDefinitions;
 [Binding]
 public class OrderingStepDefinitions(OrderingApiDriver orderingApiDriver)
 {
-    public record OrderRequestData(TimeSpan ExpectedDeliveryTime);
+    public record OrderData(TimeSpan ExpectedDeliveryTime);
 
     [Given("they have placed an order with")]
     public async Task GivenTheyHavePlacedAnOrderWith(DataTable orderDataTable)
     {
-        var orderData = orderDataTable.CreateInstance<OrderRequestData>();
+        var orderData = orderDataTable.CreateInstance<OrderData>();
         var expectedDeliveryTime = TimeOnly.FromTimeSpan(orderData.ExpectedDeliveryTime);
         //NOTE: The expectedDeliveryTime is not used, because of the workaround we apply. It will be used once the pattern is applied.
 

@@ -19,7 +19,7 @@ public class WimpAppHost(AppLogContext appLogContext) : WebApplicationFactory<Pr
             loggingBuilder.SetMinimumLevel(LogLevel.Debug);
             loggingBuilder.ClearProviders();
             loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, DebugLoggerProvider>(_ => new DebugLoggerProvider()));
-            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppHostLoggerProvider>(_ => new AppHostLoggerProvider(appLogContext)));
+            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppLogContextLoggerProvider>(_ => new AppLogContextLoggerProvider(appLogContext)));
         });
     }
 }

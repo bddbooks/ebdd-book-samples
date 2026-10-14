@@ -20,7 +20,7 @@ This document shows the differences between the Before and After implementations
          order = new OrderObjectMother().withCustomerCollection().build();
      }
  
-+    @When("the customer provides valid contact details, but:")
++    @When("the customer provides valid contact details, but")
 +    public void theCustomerProvidesValidContactDetailsBut(DataTable customizationTable) throws Exception {
 +        if (customizationTable.cell(0, 0).equals("field"))
 +            customizationTable = customizationTable.transpose();
@@ -47,7 +47,7 @@ This document shows the differences between the Before and After implementations
 -    When the customer provides the contact details as:
 -      | Name   | Email   | Phone   |
 -      | <name> | <email> | <phone> |
-+    When the customer provides valid contact details, but:
++    When the customer provides valid contact details, but
 +      | field   | value   |
 +      | <field> | <value> |
      Then the contact details are <result>
@@ -70,7 +70,7 @@ This document shows the differences between the Before and After implementations
  
 +  Scenario Outline: State is mandatory for US customers
 +    Given a customer has chosen to collect their order
-+    When the customer provides valid contact details, but:
++    When the customer provides valid contact details, but
 +      | Country   | State   |
 +      | <country> | <state> |
 +    Then the contact details are <result>

@@ -11,7 +11,7 @@ public class PaymentsStepDefinitions(OrderingContext orderingContext, AppHosting
 {
     private Payment? payment;
 
-    [When("their payment is authorised by the payment gateway")]
+    [When("their payment is authorized by the payment gateway")]
     public async Task WhenTheirPaymentIsAuthorisedByThePaymentGateway()
     {
         int orderNo = orderingContext.CurrentOrderNo ?? throw new InvalidOperationException("No current order");

@@ -9,7 +9,7 @@ using WIMP.Specs.Support.Logging;
 
 namespace WIMP.Specs.Support;
 
-public class WimpAppHost(AppLogContext appLogContext, ReqnrollLoggerProvider reqnrollLoggerProvider) : WebApplicationFactory<Program>
+public class WimpAppHost(AppLogContext appLogContext, TestLoggerProvider testLoggerProvider) : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -21,9 +21,9 @@ public class WimpAppHost(AppLogContext appLogContext, ReqnrollLoggerProvider req
             // log app log entries to debug console
             loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, DebugLoggerProvider>(_ => new DebugLoggerProvider()));
             // log app log entries to AppLogContext
-            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppHostLoggerProvider>(_ => new AppHostLoggerProvider(appLogContext)));
+            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, AppLogContextLoggerProvider>(_ => new AppLogContextLoggerProvider(appLogContext)));
             // embed app log to the test log
-            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, EmbeddedAppHostLoggerProvider>(_ => new EmbeddedAppHostLoggerProvider(reqnrollLoggerProvider)));
+            loggingBuilder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, EmbeddedAppHostLoggerProvider>(_ => new EmbeddedAppHostLoggerProvider(testLoggerProvider)));
         });
     }
 }

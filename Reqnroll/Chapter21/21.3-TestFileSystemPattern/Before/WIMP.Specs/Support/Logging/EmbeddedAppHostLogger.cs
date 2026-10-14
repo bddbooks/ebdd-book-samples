@@ -6,10 +6,10 @@ namespace WIMP.Specs.Support.Logging;
 
 /// <summary>
 /// An <see cref="ILogger"/> implementation that forwards log entries to Reqnroll output helper
-/// via the <see cref="ReqnrollLogger"/> base class.
+/// via the <see cref="TestLogger"/> base class.
 /// </summary>
 internal class EmbeddedAppHostLogger(string categoryName, IExternalScopeProvider scopeProvider, IReqnrollOutputHelper outputHelper, IScenarioContext scenarioContext) :
-    ReqnrollLogger(categoryName, scopeProvider, outputHelper)
+    TestLogger(categoryName, scopeProvider, outputHelper)
 {
     private const LogLevel MinimumAppLogLevel = LogLevel.Warning;
     private const LogLevel MinimumAppLogLevelForActions = LogLevel.Information;

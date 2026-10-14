@@ -8,9 +8,9 @@ This document shows the differences between the Before and After implementations
 - 📝 Modified [WIMP.Specs/Drivers/OrderingApiDriver.cs](#wimpspecsdriversorderingapidrivercs)
 - 📝 Modified [WIMP.Specs/Features/Authentication.feature](#wimpspecsfeaturesauthenticationfeature)
 - 📝 Modified [WIMP.Specs/Support/LambdaAction.cs](#wimpspecssupportlambdaactioncs)
-- ➕ Added [WIMP.Specs/Support/Logging/ReqnrollLogger.cs](#wimpspecssupportloggingreqnrollloggercs)
-- ➕ Added [WIMP.Specs/Support/Logging/ReqnrollLoggerHooks.cs](#wimpspecssupportloggingreqnrollloggerhookscs)
-- ➕ Added [WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs](#wimpspecssupportloggingreqnrollloggerprovidercs)
+- ➕ Added [WIMP.Specs/Support/Logging/TestLogger.cs](#wimpspecssupportloggingtestloggercs)
+- ➕ Added [WIMP.Specs/Support/Logging/TestLoggerHooks.cs](#wimpspecssupportloggingtestloggerhookscs)
+- ➕ Added [WIMP.Specs/Support/Logging/TestLoggerProvider.cs](#wimpspecssupportloggingtestloggerprovidercs)
 - 📝 Modified [WIMP.Specs/Support/RestApiContext.cs](#wimpspecssupportrestapicontextcs)
 - 📝 Modified [WIMP.Specs/Support/TestAction.cs](#wimpspecssupporttestactioncs)
 
@@ -199,11 +199,11 @@ This document shows the differences between the Before and After implementations
              return Task.CompletedTask;
 ```
 
-### WIMP.Specs/Support/Logging/ReqnrollLogger.cs
+### WIMP.Specs/Support/Logging/TestLogger.cs
 
-[View file](After/WIMP.Specs/Support/Logging/ReqnrollLogger.cs#L1)
+[View file](After/WIMP.Specs/Support/Logging/TestLogger.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/Logging/ReqnrollLogger.cs#L1-L71)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/Logging/TestLogger.cs#L1-L71)</sub>
 
 ```diff
 @@ -0,0 +1,71 @@
@@ -216,7 +216,7 @@ This document shows the differences between the Before and After implementations
 +/// <summary>
 +/// An <see cref="ILogger"/> implementation that forwards log entries to Reqnroll output helper.
 +/// </summary>
-+internal class ReqnrollLogger(
++internal class TestLogger(
 +    string categoryName,
 +    IExternalScopeProvider scopeProvider,
 +    IReqnrollOutputHelper outputHelper) : ILogger
@@ -280,11 +280,11 @@ This document shows the differences between the Before and After implementations
 +}
 ```
 
-### WIMP.Specs/Support/Logging/ReqnrollLoggerHooks.cs
+### WIMP.Specs/Support/Logging/TestLoggerHooks.cs
 
-[View file](After/WIMP.Specs/Support/Logging/ReqnrollLoggerHooks.cs#L1)
+[View file](After/WIMP.Specs/Support/Logging/TestLoggerHooks.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/Logging/ReqnrollLoggerHooks.cs#L1-L28)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/Logging/TestLoggerHooks.cs#L1-L28)</sub>
 
 ```diff
 @@ -0,0 +1,28 @@
@@ -295,7 +295,7 @@ This document shows the differences between the Before and After implementations
 +namespace WIMP.Specs.Support.Logging;
 +
 +[Binding]
-+public class ReqnrollLoggerHooks(IScenarioContext scenarioContext, ReqnrollLoggerProvider reqnrollLoggerProvider)
++public class TestLoggerHooks(IScenarioContext scenarioContext, TestLoggerProvider testLoggerProvider)
 +{
 +    private const LogLevel DefaultMinimumLogLevel = LogLevel.Information;
 +
@@ -311,18 +311,18 @@ This document shows the differences between the Before and After implementations
 +        var loggerFactory = LoggerFactory.Create(builder =>
 +        {
 +            builder.SetMinimumLevel(logLevel);
-+            builder.AddProvider(reqnrollLoggerProvider);
++            builder.AddProvider(testLoggerProvider);
 +        });
 +        scenarioContext.ScenarioContainer.RegisterInstanceAs(loggerFactory, dispose: true);
 +    }
 +}
 ```
 
-### WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs
+### WIMP.Specs/Support/Logging/TestLoggerProvider.cs
 
-[View file](After/WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs#L1)
+[View file](After/WIMP.Specs/Support/Logging/TestLoggerProvider.cs#L1)
 
-<sub>[Jump to change](After/WIMP.Specs/Support/Logging/ReqnrollLoggerProvider.cs#L1-L54)</sub>
+<sub>[Jump to change](After/WIMP.Specs/Support/Logging/TestLoggerProvider.cs#L1-L54)</sub>
 
 ```diff
 @@ -0,0 +1,54 @@
@@ -338,7 +338,7 @@ This document shows the differences between the Before and After implementations
 +/// An <see cref="ILoggerProvider"/> implementation that creates <see cref="ILogger"/> loggers,
 +/// that forward the log messages to Reqnroll output helper.
 +/// </summary>
-+public sealed class ReqnrollLoggerProvider(IReqnrollOutputHelper outputHelper) : ILoggerProvider
++public sealed class TestLoggerProvider(IReqnrollOutputHelper outputHelper) : ILoggerProvider
 +{
 +    private readonly IExternalScopeProvider scopeProvider = new ScenarioScopeProvider();
 +
@@ -374,7 +374,7 @@ This document shows the differences between the Before and After implementations
 +    }
 +
 +    public ILogger CreateLogger(string categoryName) =>
-+        new ReqnrollLogger(categoryName, scopeProvider, outputHelper);
++        new TestLogger(categoryName, scopeProvider, outputHelper);
 +
 +    public void Dispose()
 +    {

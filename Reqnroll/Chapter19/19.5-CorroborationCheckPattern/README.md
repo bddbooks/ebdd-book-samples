@@ -41,8 +41,8 @@ Uncommenting the `<DefineConstants>` setting in `WIMP.App.csproj` activates such
  namespace WIMP.Specs.Support;
  
  [Binding]
--public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, ReqnrollLoggerProvider reqnrollLoggerProvider)
-+public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, ReqnrollLoggerProvider reqnrollLoggerProvider,
+-public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, TestLoggerProvider testLoggerProvider)
++public class Hooks(AppHostingContext appHostingContext, AppLogContext appLogContext, TestLoggerProvider testLoggerProvider,
 +    IScenarioContext scenarioContext)
  {
 +    [AfterScenario]

@@ -184,6 +184,6 @@ This document shows the differences between the Before and After implementations
    <ItemGroup>
 +    <PackageReference Include="DiffPlex" Version="1.9.0" />
      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.12" />
-     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-     <PackageReference Include="MSTest.TestAdapter" Version="4.0.2" />
+     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+     <PackageReference Include="MSTest.TestAdapter" Version="4.4.1" />
 ```

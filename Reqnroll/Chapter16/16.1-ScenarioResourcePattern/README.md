@@ -19,12 +19,12 @@ This document shows the differences between the Before and After implementations
 ```diff
 @@ -2,6 +2,7 @@
  
- Rule: Card payments must be authorised by payment gateway
+ Rule: Card payments must be authorized by payment gateway
  
 +  @payment_gateway
    Scenario: Customer is shown payment reference
      Given an authenticated customer has placed an order
-     When their payment is authorised by the payment gateway
+     When their payment is authorized by the payment gateway
 ```
 
 ### WIMP.Specs/Support/Hooks.cs

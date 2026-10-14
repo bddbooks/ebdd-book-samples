@@ -8,12 +8,12 @@ namespace WIMP.Specs.StepDefinitions;
 [Binding]
 public class OrderingStepDefinitions(TimeServiceDriver timeServiceDriver, OrderingApiDriver orderingApiDriver)
 {
-    public record OrderRequestData(TimeSpan ExpectedDeliveryTime);
+    public record OrderData(TimeSpan ExpectedDeliveryTime);
 
     [Given("they have placed an order with")]
     public async Task GivenTheyHavePlacedAnOrderWith(DataTable orderDataTable)
     {
-        var orderData = orderDataTable.CreateInstance<OrderRequestData>();
+        var orderData = orderDataTable.CreateInstance<OrderData>();
         var expectedDeliveryTime = TimeOnly.FromTimeSpan(orderData.ExpectedDeliveryTime);
 
         // ensuring that the placing time is before the expected delivery time
